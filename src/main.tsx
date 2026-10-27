@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {createRoot} from 'react-dom/client';
-import {motion, AnimatePresence, useReducedMotion, useScroll, useTransform} from 'motion/react';
-import {CalendarBlank, MapPin, SpeakerHigh, SpeakerSlash, FlowerLotus, Sparkle, ArrowDown, Heart} from '@phosphor-icons/react';
+import {motion, useReducedMotion, useScroll, useTransform} from 'motion/react';
+import {CalendarBlank, MapPin, SpeakerHigh, SpeakerSlash, FlowerLotus, Sparkle, ArrowDown} from '@phosphor-icons/react';
 import gsap from 'gsap';
 import {ScrollTrigger} from 'gsap/ScrollTrigger';
 import './styles.css';
@@ -162,65 +162,62 @@ function ScratchDate(){
   );
 }
 
-// Royal Palace Gate Welcome with Door Opening Animation
+// Royal Palace Gate Welcome with Seamless Door Opening Animation
 function RoyalGateWelcome({onEnter}:{onEnter:()=>void}){
   const [opening, setOpening] = useState(false);
-  const reduce = useReducedMotion();
 
   const handleOpen = () => {
     if (opening) return;
     setOpening(true);
-    // Give animation 1.4s to unfold gracefully
+    // Smooth transition into the invitation
     setTimeout(() => {
       onEnter();
-    }, 1450);
+    }, 1100);
   };
 
   return (
-    <div className={`royal-welcome ${opening ? 'is-opening' : ''}`}>
-      {/* Background preview of couple that gets revealed */}
-      <div className="gate-reveal-backdrop" aria-hidden="true">
-        <img src="/assets/hero-couple.jpg" alt="" className="backdrop-img" />
-        <div className="divine-light-flare" />
+    <div
+      className={`royal-welcome ${opening ? 'is-opening' : ''}`}
+      onClick={handleOpen}
+      role="button"
+      tabIndex={0}
+      aria-label="Open Tanya & Abhishek wedding invitation"
+      onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') handleOpen(); }}
+    >
+      {/* Background preview of hero couple revealed as doors part */}
+      <div className="gate-backdrop-reveal" aria-hidden="true">
+        <img src="/assets/hero-couple.jpg" alt="" className="gate-backdrop-img" />
+        <div className="gate-divine-glow" />
       </div>
 
-      {/* Floating flower petals during door open */}
+      {/* Floating flower petals */}
       <div className="gate-petals-burst" aria-hidden="true">
         {Array.from({length: 16}, (_, i) => (
           <span key={i} className={`gate-petal petal-${i}`} />
         ))}
       </div>
 
-      {/* The 3D Double Doors from Image 2 */}
-      <div className="gate-portal-container">
-        {/* Left Gate Door Panel */}
-        <div className="gate-door-wing left-wing">
-          <div className="gate-door-inner">
-            <img src="/assets/gate-open.jpg" alt="Left palace gate" className="gate-img" />
-          </div>
-          <div className="door-shadow" />
+      {/* Seamless Royal Double Doors: perfectly intact before clicking, parting on click */}
+      <div className="gate-doors-wrapper" aria-hidden="true">
+        <div className="gate-door-half left-door">
+          <img src="/assets/gate-open.jpg" alt="Left palace gate" className="gate-full-img" />
         </div>
-
-        {/* Right Gate Door Panel */}
-        <div className="gate-door-wing right-wing">
-          <div className="gate-door-inner">
-            <img src="/assets/gate-open.jpg" alt="Right palace gate" className="gate-img" />
-          </div>
-          <div className="door-shadow" />
+        <div className="gate-door-half right-door">
+          <img src="/assets/gate-open.jpg" alt="Right palace gate" className="gate-full-img" />
         </div>
-
-        {/* Central glowing light seam between the opening doors */}
-        <div className="gate-center-crevice-glow" />
+        <div className="gate-seam-glow" />
       </div>
 
-      {/* Interactive Trigger Button overlaid right at the bottom 'Open our invitation' pill */}
+      {/* Interactive CTA Button overlaid on the bottom pill */}
       <div className="gate-action-area">
-        <motion.button
+        <button
+          type="button"
           aria-label="Open Tanya and Abhishek's wedding invitation"
           className="open-gate-btn"
-          onClick={handleOpen}
-          whileHover={{scale: 1.03}}
-          whileTap={{scale: 0.96}}
+          onClick={e => {
+            e.stopPropagation();
+            handleOpen();
+          }}
         >
           <span className="btn-glow-ring" />
           <span className="btn-lotus-seal">🪷</span>
@@ -229,12 +226,19 @@ function RoyalGateWelcome({onEnter}:{onEnter:()=>void}){
             <small className="btn-subtitle">TAP TO ENTER</small>
           </span>
           <Sparkle size={18} weight="fill" className="btn-sparkle" />
-        </motion.button>
-        <span className="tap-hint">Tap button or gate to open invitation</span>
+        </button>
+        <span className="tap-hint">Tap anywhere to open invitation</span>
       </div>
 
-      <button className="skip-gate-btn" onClick={onEnter}>
-        Skip to invitation →
+      <button
+        type="button"
+        className="skip-gate-btn"
+        onClick={e => {
+          e.stopPropagation();
+          onEnter();
+        }}
+      >
+        Skip intro →
       </button>
     </div>
   );
@@ -247,21 +251,20 @@ function App(){
   const reduce=useReducedMotion();
   const {scrollYProgress}=useScroll();
   const leafY=useTransform(scrollYProgress,[0,1],[0,180]);
-  const templeY=useTransform(scrollYProgress,[0,1],[0,95]);
   const page=useRef<HTMLElement>(null);
 
   const startCelebration = () => {
     setEntered(true);
-    // Play celebratory wedding background music if available
+    // Play celebratory wedding background music safely
     const audio = audioRef.current;
     if (audio) {
       audio.volume = 0.55;
-      audio.play().then(() => {
-        setMusicPlaying(true);
-      }).catch(() => {
-        // Autoplay may be blocked by browser policy
-        setMusicPlaying(false);
-      });
+      const playPromise = audio.play();
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => setMusicPlaying(true))
+          .catch(() => setMusicPlaying(false));
+      }
     }
   };
 
@@ -280,10 +283,8 @@ function App(){
     if(reduce||!entered||!page.current)return;
     gsap.registerPlugin(ScrollTrigger);
     const ctx=gsap.context(()=>{
-      gsap.fromTo('.hero-copy>*',{opacity:0,y:25},{opacity:1,y:0,duration:1.1,stagger:.12,ease:'power3.out'});
-      gsap.to('.hero-art',{scale:1.08,yPercent:6,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:1}});
-      gsap.utils.toArray<HTMLElement>('.event').forEach((el,i)=>gsap.fromTo(el,{opacity:0,x:i%2?-40:40,rotate:.4},{opacity:1,x:0,rotate:0,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 86%',end:'top 58%',scrub:.8}}));
-      gsap.fromTo('.haldi-showcase img',{scale:1.06,yPercent:-4},{scale:1,yPercent:4,ease:'none',scrollTrigger:{trigger:'.haldi-showcase',start:'top bottom',end:'bottom top',scrub:1}});
+      gsap.fromTo('.hero-copy>*',{opacity:0,y:20},{opacity:1,y:0,duration:1,stagger:.1,ease:'power3.out'});
+      gsap.utils.toArray<HTMLElement>('.event').forEach((el,i)=>gsap.fromTo(el,{opacity:0,x:i%2?-35:35},{opacity:1,x:0,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 86%',end:'top 58%',scrub:.8}}));
       gsap.fromTo('.story-inner',{clipPath:'inset(0 50% 0 50%)',opacity:.4},{clipPath:'inset(0 0% 0 0%)',opacity:1,ease:'power2.out',scrollTrigger:{trigger:'.story',start:'top 80%',end:'center 55%',scrub:1}});
       gsap.to('.map i',{y:-10,repeat:-1,yoyo:true,duration:1.2,ease:'sine.inOut'});
       gsap.utils.toArray<HTMLElement>('.atmos-lantern').forEach((el,i)=>{
@@ -341,22 +342,21 @@ function App(){
         <RoyalGateWelcome onEnter={startCelebration} />
       )}
 
-      {/* 1) Hero Section: 1st uploaded couple image with text positioned in the upper blank arch space */}
+      {/* 1) Hero Section: 1st uploaded couple image in full width with perfectly centered arch typography */}
       <section className="hero">
-        <motion.img
+        <img
           className="hero-art"
           src="/assets/hero-couple.jpg"
           alt="Tanya and Abhishek embracing under a floral arch by the holy Ganges in Rishikesh"
-          style={{y:reduce?0:templeY}}
         />
         <div className="hero-scrim"/>
 
-        {/* Text placed right in the clear sunset arch space above Tanya and Abhishek */}
+        {/* Text placed in the sunset arch space above Tanya and Abhishek - perfectly centered */}
         <motion.div
           className="hero-copy"
-          initial={{opacity:0,y:20}}
-          animate={{opacity:entered?1:0,y:entered?0:20}}
-          transition={{delay:.2,duration:1.1,ease:[.16,1,.3,1]}}
+          initial={{opacity:0,y:16}}
+          animate={{opacity:entered?1:0,y:entered?0:16}}
+          transition={{delay:.15,duration:0.9,ease:[.16,1,.3,1]}}
         >
           <div className="arch-header">
             <span className="arch-lotus-glyph">🪷</span>
@@ -409,28 +409,23 @@ function App(){
         </Reveal>
       </section>
 
-      {/* 3) "Painted in sunshine before forever begins" section replaced with 3rd uploaded image */}
+      {/* 3) "Painted in sunshine before forever begins" section: full width exact image without boxing or duplicate text */}
       <section className="ceremony-moment">
         <div className="floating-glass lotus-one">✿</div>
         <div className="floating-glass lotus-two">❀</div>
         <div className="floating-diya">◒</div>
 
-        <div className="haldi-showcase">
-          <div className="haldi-frame-card">
-            <img
-              src="/assets/haldi-couple.jpg"
-              loading="lazy"
-              alt="Tanya and Abhishek haldi ceremony moment - Painted in sunshine before forever begins"
-              className="haldi-artwork"
-            />
-          </div>
+        <div className="ceremony-image">
+          <img
+            src="/assets/haldi-couple.jpg"
+            loading="lazy"
+            alt="Tanya and Abhishek haldi ceremony moment - Painted in sunshine before forever begins"
+            className="ceremony-artwork"
+          />
         </div>
 
-        <Reveal className="ceremony-caption">
-          <p className="script">Painted in sunshine</p>
-          <h2>Before forever begins</h2>
-          <p>Turmeric on our cheeks, henna on our hands, and every favorite person gathered close.</p>
-          <span>Explore our wedding festivities below</span>
+        <Reveal className="ceremony-subcue">
+          <span>Scroll to explore wedding festivities ↓</span>
         </Reveal>
       </section>
 

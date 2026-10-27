@@ -45,6 +45,7 @@ button {
 main {
   position: relative;
   isolation: isolate;
+  width: 100%;
 }
 
 /* Scroll Progress Indicator */
@@ -70,7 +71,7 @@ main {
   gap: 7px;
   padding: 8px 14px;
   border-radius: 999px;
-  background: rgba(255, 245, 226, 0.88);
+  background: rgba(255, 245, 226, 0.92);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(184, 123, 34, 0.45);
   color: var(--ink-deep);
@@ -117,7 +118,7 @@ main {
 }
 
 /* =========================================================
-   2) ROYAL GATE WELCOME SCREEN & 3D DOOR OPENING ANIMATION
+   1) ROYAL GATE WELCOME SCREEN & FLAWLESS DOOR OPENING
    ========================================================= */
 .royal-welcome {
   position: fixed;
@@ -128,52 +129,51 @@ main {
   align-items: center;
   justify-content: center;
   background: #1c0f07;
-  perspective: 1600px;
+  cursor: pointer;
 }
 
 /* Backdrop Couple Image revealed behind opening doors */
-.gate-reveal-backdrop {
+.gate-backdrop-reveal {
   position: absolute;
   inset: 0;
   z-index: 1;
   overflow: hidden;
 }
 
-.backdrop-img {
+.gate-backdrop-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center top;
-  filter: brightness(0.92) contrast(1.02);
-  transform: scale(1.06);
-  transition: transform 1.6s cubic-bezier(0.16, 1, 0.3, 1), filter 1.6s ease;
+  filter: brightness(0.92);
+  transform: scale(1.04);
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), filter 1.2s ease;
 }
 
-.is-opening .backdrop-img {
+.is-opening .gate-backdrop-img {
   transform: scale(1);
-  filter: brightness(1) contrast(1);
+  filter: brightness(1);
 }
 
-/* Radiant golden divine flare between the doors */
-.divine-light-flare {
+/* Radiant golden light flare */
+.gate-divine-glow {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 50% 55%, rgba(255, 238, 175, 0.95) 0%, rgba(230, 160, 40, 0.5) 35%, transparent 70%);
+  background: radial-gradient(circle at 50% 55%, rgba(255, 238, 175, 0.95) 0%, rgba(230, 160, 40, 0.55) 35%, transparent 70%);
   opacity: 0;
   pointer-events: none;
   mix-blend-mode: screen;
-  transition: opacity 0.5s ease;
 }
 
-.is-opening .divine-light-flare {
-  animation: divineFlareBurst 1.4s ease-out forwards;
+.is-opening .gate-divine-glow {
+  animation: divineFlareBurst 1.2s ease-out forwards;
 }
 
 @keyframes divineFlareBurst {
   0% { opacity: 0; transform: scale(0.6); }
-  35% { opacity: 1; transform: scale(1.4); }
-  75% { opacity: 0.8; transform: scale(1.8); }
-  100% { opacity: 0; transform: scale(2.2); }
+  35% { opacity: 1; transform: scale(1.3); }
+  75% { opacity: 0.7; transform: scale(1.7); }
+  100% { opacity: 0; transform: scale(2.1); }
 }
 
 /* Bursting flower petals when doors open */
@@ -196,78 +196,64 @@ main {
 }
 
 .is-opening .gate-petal {
-  animation: petalScatter 1.4s ease-out forwards;
+  animation: petalScatter 1.2s ease-out forwards;
 }
 
-/* Individual petal random trajectories */
-.gate-petal:nth-child(1) { left: 48%; top: 52%; --dx: -120px; --dy: -180px; --rot: 240deg; animation-delay: 0.1s; }
-.gate-petal:nth-child(2) { left: 52%; top: 50%; --dx: 140px; --dy: -160px; --rot: -210deg; animation-delay: 0.12s; }
-.gate-petal:nth-child(3) { left: 49%; top: 55%; --dx: -190px; --dy: -40px; --rot: 180deg; animation-delay: 0.15s; }
-.gate-petal:nth-child(4) { left: 51%; top: 54%; --dx: 180px; --dy: -30px; --rot: -190deg; animation-delay: 0.08s; }
-.gate-petal:nth-child(5) { left: 47%; top: 58%; --dx: -160px; --dy: 120px; --rot: 300deg; animation-delay: 0.2s; }
-.gate-petal:nth-child(6) { left: 53%; top: 56%; --dx: 170px; --dy: 110px; --rot: -280deg; animation-delay: 0.18s; }
-.gate-petal:nth-child(7) { left: 50%; top: 48%; --dx: -70px; --dy: -230px; --rot: 150deg; animation-delay: 0.14s; }
-.gate-petal:nth-child(8) { left: 50%; top: 49%; --dx: 80px; --dy: -220px; --rot: -160deg; animation-delay: 0.16s; }
-.gate-petal:nth-child(9) { left: 48%; top: 62%; --dx: -110px; --dy: 200px; --rot: 350deg; animation-delay: 0.22s; }
-.gate-petal:nth-child(10) { left: 52%; top: 61%; --dx: 120px; --dy: 210px; --rot: -320deg; animation-delay: 0.2s; }
-.gate-petal:nth-child(11) { left: 46%; top: 51%; --dx: -220px; --dy: -90px; --rot: 190deg; animation-delay: 0.18s; }
-.gate-petal:nth-child(12) { left: 54%; top: 52%; --dx: 230px; --dy: -80px; --rot: -170deg; animation-delay: 0.2s; }
-.gate-petal:nth-child(13) { left: 50%; top: 50%; --dx: -30px; --dy: -260px; --rot: 130deg; animation-delay: 0.15s; }
-.gate-petal:nth-child(14) { left: 50%; top: 50%; --dx: 40px; --dy: -250px; --rot: -140deg; animation-delay: 0.17s; }
-.gate-petal:nth-child(15) { left: 48%; top: 65%; --dx: -60px; --dy: 250px; --rot: 260deg; animation-delay: 0.25s; }
-.gate-petal:nth-child(16) { left: 52%; top: 64%; --dx: 70px; --dy: 240px; --rot: -240deg; animation-delay: 0.24s; }
+.gate-petal:nth-child(1) { left: 48%; top: 52%; --dx: -120px; --dy: -180px; --rot: 240deg; animation-delay: 0.05s; }
+.gate-petal:nth-child(2) { left: 52%; top: 50%; --dx: 140px; --dy: -160px; --rot: -210deg; animation-delay: 0.08s; }
+.gate-petal:nth-child(3) { left: 49%; top: 55%; --dx: -190px; --dy: -40px; --rot: 180deg; animation-delay: 0.1s; }
+.gate-petal:nth-child(4) { left: 51%; top: 54%; --dx: 180px; --dy: -30px; --rot: -190deg; animation-delay: 0.06s; }
+.gate-petal:nth-child(5) { left: 47%; top: 58%; --dx: -160px; --dy: 120px; --rot: 300deg; animation-delay: 0.12s; }
+.gate-petal:nth-child(6) { left: 53%; top: 56%; --dx: 170px; --dy: 110px; --rot: -280deg; animation-delay: 0.11s; }
+.gate-petal:nth-child(7) { left: 50%; top: 48%; --dx: -70px; --dy: -230px; --rot: 150deg; animation-delay: 0.08s; }
+.gate-petal:nth-child(8) { left: 50%; top: 49%; --dx: 80px; --dy: -220px; --rot: -160deg; animation-delay: 0.09s; }
+.gate-petal:nth-child(9) { left: 48%; top: 62%; --dx: -110px; --dy: 200px; --rot: 350deg; animation-delay: 0.14s; }
+.gate-petal:nth-child(10) { left: 52%; top: 61%; --dx: 120px; --dy: 210px; --rot: -320deg; animation-delay: 0.13s; }
+.gate-petal:nth-child(11) { left: 46%; top: 51%; --dx: -220px; --dy: -90px; --rot: 190deg; animation-delay: 0.12s; }
+.gate-petal:nth-child(12) { left: 54%; top: 52%; --dx: 230px; --dy: -80px; --rot: -170deg; animation-delay: 0.13s; }
+.gate-petal:nth-child(13) { left: 50%; top: 50%; --dx: -30px; --dy: -260px; --rot: 130deg; animation-delay: 0.09s; }
+.gate-petal:nth-child(14) { left: 50%; top: 50%; --dx: 40px; --dy: -250px; --rot: -140deg; animation-delay: 0.1s; }
+.gate-petal:nth-child(15) { left: 48%; top: 65%; --dx: -60px; --dy: 250px; --rot: 260deg; animation-delay: 0.15s; }
+.gate-petal:nth-child(16) { left: 52%; top: 64%; --dx: 70px; --dy: 240px; --rot: -240deg; animation-delay: 0.14s; }
 
 @keyframes petalScatter {
   0% { opacity: 0; transform: translate3d(0, 0, 0) scale(0.4) rotate(0deg); }
-  20% { opacity: 1; }
+  25% { opacity: 1; }
   100% { opacity: 0; transform: translate3d(var(--dx), var(--dy), 0) scale(1.1) rotate(var(--rot)); }
 }
 
-/* 3D Gate Portal Wings */
-.gate-portal-container {
+/* Seamless Double Gate Doors */
+.gate-doors-wrapper {
   position: absolute;
   inset: 0;
   z-index: 5;
-  perspective: 1600px;
   overflow: hidden;
+  pointer-events: none;
 }
 
-.gate-door-wing {
+.gate-door-half {
   position: absolute;
   top: 0;
-  width: 50%;
+  width: 100%;
   height: 100%;
   overflow: hidden;
-  transition: transform 1.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s 0.9s;
   will-change: transform, opacity;
+  transition: transform 1.05s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s 0.75s;
 }
 
-.left-wing {
+.left-door {
   left: 0;
+  clip-path: polygon(0 0, 50.1% 0, 50.1% 100%, 0 100%);
   transform-origin: left center;
 }
 
-.right-wing {
-  right: 0;
+.right-door {
+  left: 0;
+  clip-path: polygon(49.9% 0, 100% 0, 100% 100%, 49.9% 100%);
   transform-origin: right center;
 }
 
-.gate-door-inner {
-  position: absolute;
-  top: 0;
-  width: 200%;
-  height: 100%;
-}
-
-.left-wing .gate-door-inner {
-  left: 0;
-}
-
-.right-wing .gate-door-inner {
-  right: 0;
-}
-
-.gate-img {
+.gate-full-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -275,56 +261,34 @@ main {
   display: block;
 }
 
-.door-shadow {
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.4);
-  opacity: 0;
-  transition: opacity 0.7s ease;
-  pointer-events: none;
-}
-
-/* When Doors Open */
-.is-opening .left-wing {
-  transform: rotateY(-96deg) scale(1.03);
+.is-opening .left-door {
+  transform: translateX(-102%) scale(1.02);
   opacity: 0;
 }
 
-.is-opening .right-wing {
-  transform: rotateY(96deg) scale(1.03);
+.is-opening .right-door {
+  transform: translateX(102%) scale(1.02);
   opacity: 0;
 }
 
-.is-opening .door-shadow {
-  opacity: 1;
-}
-
-/* Center Crevice Glow */
-.gate-center-crevice-glow {
+.gate-seam-glow {
   position: absolute;
   left: 50%;
   top: 15%;
   bottom: 15%;
   width: 3px;
   transform: translateX(-50%);
-  background: linear-gradient(180deg, transparent, rgba(255, 235, 170, 0.9), transparent);
-  box-shadow: 0 0 16px 4px rgba(255, 210, 110, 0.8);
+  background: linear-gradient(180deg, transparent, rgba(255, 235, 170, 0.85), transparent);
+  box-shadow: 0 0 16px 4px rgba(255, 210, 110, 0.7);
   opacity: 0.6;
-  transition: opacity 0.4s;
   pointer-events: none;
-  animation: crevicePulse 2.4s ease-in-out infinite alternate;
 }
 
-@keyframes crevicePulse {
-  0% { opacity: 0.3; box-shadow: 0 0 8px 1px rgba(255, 210, 110, 0.4); }
-  100% { opacity: 0.85; box-shadow: 0 0 20px 6px rgba(255, 220, 130, 0.9); }
-}
-
-.is-opening .gate-center-crevice-glow {
+.is-opening .gate-seam-glow {
   opacity: 1;
-  width: 12px;
-  box-shadow: 0 0 40px 15px rgba(255, 240, 180, 1);
-  transition: width 0.3s, box-shadow 0.3s;
+  width: 14px;
+  box-shadow: 0 0 40px 18px rgba(255, 240, 180, 1);
+  transition: width 0.25s, box-shadow 0.25s;
 }
 
 /* Interactive Button at Bottom of Welcome Screen */
@@ -339,7 +303,8 @@ main {
   align-items: center;
   gap: 10px;
   width: min(90%, 360px);
-  transition: opacity 0.4s ease, transform 0.4s ease;
+  pointer-events: auto;
+  transition: opacity 0.35s ease, transform 0.35s ease;
 }
 
 .is-opening .gate-action-area {
@@ -363,6 +328,11 @@ main {
   box-shadow: 0 14px 34px rgba(26, 13, 6, 0.35), inset 0 1px 2px rgba(255, 255, 255, 0.8);
   cursor: pointer;
   text-align: left;
+  transition: transform 0.2s;
+}
+
+.open-gate-btn:hover {
+  transform: scale(1.02);
 }
 
 .btn-glow-ring {
@@ -438,7 +408,7 @@ main {
   position: absolute;
   top: max(16px, env(safe-area-inset-top));
   right: 16px;
-  z-index: 12;
+  z-index: 15;
   padding: 8px 14px;
   border-radius: 999px;
   border: 1px solid rgba(255, 240, 210, 0.4);
@@ -462,16 +432,19 @@ main {
 }
 
 /* =========================================================
-   1) HERO SECTION: 1st UPLOADED IMAGE & TEXT IN BLANK SPACE
+   2) HERO SECTION: FULL WIDTH 1st IMAGE & PERFECTLY CENTERED TEXT
    ========================================================= */
 .hero {
   position: relative;
+  width: 100%;
   min-height: 100svh;
   overflow: hidden;
   display: flex;
-  align-items: flex-start;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
   background: var(--ink-deep);
+  text-align: center;
 }
 
 .hero-art {
@@ -481,6 +454,7 @@ main {
   height: 100%;
   object-fit: cover;
   object-position: center top;
+  display: block;
 }
 
 .hero-scrim {
@@ -488,23 +462,27 @@ main {
   inset: 0;
   background: linear-gradient(
     180deg,
-    rgba(25, 12, 5, 0.25) 0%,
+    rgba(25, 12, 5, 0.22) 0%,
     rgba(25, 12, 5, 0) 36%,
-    rgba(25, 12, 5, 0.12) 72%,
+    rgba(25, 12, 5, 0.1) 72%,
     rgba(22, 10, 4, 0.65) 100%
   );
   pointer-events: none;
 }
 
-/* Placed precisely in the clear sunset arch space above the couple's heads */
+/* Placed in the clear sunset arch space above the couple's heads - mathematically centered */
 .hero-copy {
-  position: absolute;
-  top: clamp(28px, 6.5svh, 60px);
-  left: 50%;
-  transform: translateX(-50%);
-  width: min(92%, 460px);
-  text-align: center;
+  position: relative;
   z-index: 5;
+  width: min(92%, 460px);
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: clamp(24px, 6.2svh, 50px);
+  padding: 0 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
   pointer-events: none;
 }
 
@@ -512,11 +490,16 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1px;
+  text-align: center;
+  width: 100%;
+  margin: 0 auto;
 }
 
 .arch-lotus-glyph {
   font-size: clamp(16px, 4vw, 22px);
+  display: block;
+  margin: 0 auto;
+  text-align: center;
   filter: drop-shadow(0 2px 4px rgba(45, 20, 8, 0.3));
 }
 
@@ -526,7 +509,9 @@ main {
   text-transform: uppercase;
   color: #44220b;
   font-weight: 600;
-  margin: 3px 0 2px;
+  margin: 3px auto 2px;
+  text-align: center;
+  width: 100%;
   text-shadow: 0 1px 1px rgba(255, 255, 255, 0.9), 0 2px 8px rgba(255, 245, 225, 0.95);
 }
 
@@ -537,7 +522,7 @@ main {
   gap: 8px;
   color: var(--gold);
   font-size: 8px;
-  margin-bottom: 2px;
+  margin: 2px auto 4px;
 }
 
 .arch-filigree i {
@@ -549,8 +534,10 @@ main {
 
 .hero h1 {
   font: clamp(34px, 8.8vw, 56px)/0.96 Italiana, Georgia, serif;
-  margin: 3px 0 4px;
+  margin: 3px auto 4px;
   color: #381a09;
+  text-align: center;
+  width: 100%;
   text-shadow: 0 1px 2px rgba(255, 255, 255, 0.95), 0 3px 12px rgba(255, 243, 218, 0.95);
 }
 
@@ -564,13 +551,16 @@ main {
 .hero-invite-line {
   font: clamp(15px, 3.8vw, 19px) Parisienne, cursive;
   color: #6d3913;
-  margin: 1px 0 6px;
+  margin: 1px auto 6px;
+  text-align: center;
+  width: 100%;
   text-shadow: 0 1px 1px rgba(255, 255, 255, 0.9), 0 2px 8px rgba(255, 245, 225, 0.95);
 }
 
 .date-rule {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
   font-size: clamp(10px, 2.4vw, 12px);
   letter-spacing: 0.16em;
@@ -581,6 +571,7 @@ main {
   border-radius: 999px;
   border: 1px solid rgba(184, 123, 34, 0.45);
   box-shadow: 0 3px 10px rgba(50, 22, 9, 0.1);
+  margin: 0 auto;
 }
 
 .date-rule i {
@@ -594,8 +585,10 @@ main {
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: #582f13;
-  margin-top: 5px;
+  margin: 6px auto 0;
   font-weight: 600;
+  text-align: center;
+  width: 100%;
   text-shadow: 0 1px 1px rgba(255, 255, 255, 0.9);
 }
 
@@ -966,75 +959,45 @@ section {
 
 /* =========================================================
    3) "PAINTED IN SUNSHINE BEFORE FOREVER BEGINS" (HALDI SECTION)
+   FULL WIDTH EXACT IMAGE - NO BOX CARD, NO DUPLICATE TEXT
    ========================================================= */
 .ceremony-moment {
-  padding: 68px 18px 74px;
-  background: linear-gradient(180deg, #fdf7ec 0%, #faecd0 50%, #f4deb5 100%);
-  color: var(--ink);
+  position: relative;
+  padding: 0;
+  background: #fdf6e7;
   overflow: hidden;
   text-align: center;
 }
 
-.haldi-showcase {
-  max-width: 480px;
-  margin: 0 auto;
+.ceremony-image {
   position: relative;
-  z-index: 2;
-}
-
-.haldi-frame-card {
-  position: relative;
-  border-radius: 22px;
+  width: 100%;
+  line-height: 0;
   overflow: hidden;
-  box-shadow: 0 20px 48px rgba(100, 58, 18, 0.22), 0 0 0 1px rgba(184, 123, 34, 0.35);
-  background: #fffdf8;
-  border: 7px solid #fffdf8;
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
-.haldi-frame-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 26px 56px rgba(100, 58, 18, 0.28), 0 0 0 1px rgba(184, 123, 34, 0.5);
-}
-
-.haldi-artwork {
+.ceremony-artwork {
   display: block;
   width: 100%;
   height: auto;
-  aspect-ratio: 545 / 1024;
-  object-fit: contain;
-  background: #fff7e7;
+  max-width: 100%;
+  object-fit: cover;
+  margin: 0 auto;
 }
 
-.ceremony-caption {
-  position: relative;
-  z-index: 3;
-  margin-top: 32px;
-  padding: 0 16px;
+.ceremony-subcue {
+  padding: 18px 20px 24px;
+  background: linear-gradient(180deg, #fceecf 0%, var(--ivory) 100%);
   text-align: center;
 }
 
-.ceremony-caption h2 {
-  font: 38px/1.05 Italiana, Georgia, serif;
-  margin: 6px 0 14px;
-  color: #4a2912;
-}
-
-.ceremony-caption > p:not(.script) {
-  max-width: 460px;
-  margin: 0 auto;
-  line-height: 1.7;
-  color: #633c1d;
-  font-size: 15px;
-}
-
-.ceremony-caption span {
-  display: block;
-  margin-top: 20px;
-  font-size: 9px;
+.ceremony-subcue span {
+  display: inline-block;
+  font-size: 10px;
   text-transform: uppercase;
-  letter-spacing: 0.18em;
-  color: #93602d;
+  letter-spacing: 0.22em;
+  color: #8c5a2c;
+  font-weight: 600;
 }
 
 .floating-glass {
@@ -1366,7 +1329,7 @@ footer > img {
     object-position: center 25%;
   }
   .hero-copy {
-    top: clamp(48px, 10svh, 96px);
+    margin-top: clamp(36px, 9svh, 80px);
   }
   .events {
     padding-inline: 8vw;
