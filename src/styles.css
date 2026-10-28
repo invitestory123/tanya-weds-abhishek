@@ -1,10 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Italiana&family=Marcellus&family=Parisienne&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Cinzel+Decorative:wght@700&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Great+Vibes&family=Italiana&family=Marcellus&family=Parisienne&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap');
 
 :root {
   --paper: #f7eedb;
   --ivory: #fff8ee;
   --gold: #b87b22;
   --gold-light: #f5d796;
+  --gold-bright: #ffe08a;
   --gold-dark: #7a4e12;
   --olive: #4f5722;
   --rose: #c75d73;
@@ -118,7 +119,8 @@ main {
 }
 
 /* =========================================================
-   1) ROYAL GATE WELCOME SCREEN & FLAWLESS DOOR OPENING
+   1) ROYAL PALACE GATE WELCOME SCREEN (IMAGE 3)
+   SEAMLESS CINEMATIC 3D DOOR OPENING & VIDEO EFFECTS
    ========================================================= */
 .royal-welcome {
   position: fixed;
@@ -128,52 +130,22 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #1c0f07;
-  cursor: pointer;
+  background: #180e07;
+  cursor: default;
+  transition: opacity 0.4s ease 0.8s;
 }
 
-/* Backdrop Couple Image revealed behind opening doors */
-.gate-backdrop-reveal {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  overflow: hidden;
-}
-
-.gate-backdrop-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center top;
-  filter: brightness(0.92);
-  transform: scale(1.04);
-  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), filter 1.2s ease;
-}
-
-.is-opening .gate-backdrop-img {
-  transform: scale(1);
-  filter: brightness(1);
-}
-
-/* Radiant golden light flare */
-.gate-divine-glow {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 50% 55%, rgba(255, 238, 175, 0.95) 0%, rgba(230, 160, 40, 0.55) 35%, transparent 70%);
-  opacity: 0;
+.royal-welcome.is-opening {
   pointer-events: none;
-  mix-blend-mode: screen;
+  opacity: 0;
 }
 
-.is-opening .gate-divine-glow {
-  animation: divineFlareBurst 1.2s ease-out forwards;
-}
-
-@keyframes divineFlareBurst {
-  0% { opacity: 0; transform: scale(0.6); }
-  35% { opacity: 1; transform: scale(1.3); }
-  75% { opacity: 0.7; transform: scale(1.7); }
-  100% { opacity: 0; transform: scale(2.1); }
+.gate-ambient-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(255, 215, 140, 0.2) 0%, rgba(20, 10, 4, 0.85) 75%);
+  pointer-events: none;
+  z-index: 2;
 }
 
 /* Bursting flower petals when doors open */
@@ -196,64 +168,51 @@ main {
 }
 
 .is-opening .gate-petal {
-  animation: petalScatter 1.2s ease-out forwards;
+  animation: petalScatter 1.3s ease-out forwards;
 }
 
-.gate-petal:nth-child(1) { left: 48%; top: 52%; --dx: -120px; --dy: -180px; --rot: 240deg; animation-delay: 0.05s; }
-.gate-petal:nth-child(2) { left: 52%; top: 50%; --dx: 140px; --dy: -160px; --rot: -210deg; animation-delay: 0.08s; }
-.gate-petal:nth-child(3) { left: 49%; top: 55%; --dx: -190px; --dy: -40px; --rot: 180deg; animation-delay: 0.1s; }
-.gate-petal:nth-child(4) { left: 51%; top: 54%; --dx: 180px; --dy: -30px; --rot: -190deg; animation-delay: 0.06s; }
-.gate-petal:nth-child(5) { left: 47%; top: 58%; --dx: -160px; --dy: 120px; --rot: 300deg; animation-delay: 0.12s; }
-.gate-petal:nth-child(6) { left: 53%; top: 56%; --dx: 170px; --dy: 110px; --rot: -280deg; animation-delay: 0.11s; }
-.gate-petal:nth-child(7) { left: 50%; top: 48%; --dx: -70px; --dy: -230px; --rot: 150deg; animation-delay: 0.08s; }
-.gate-petal:nth-child(8) { left: 50%; top: 49%; --dx: 80px; --dy: -220px; --rot: -160deg; animation-delay: 0.09s; }
-.gate-petal:nth-child(9) { left: 48%; top: 62%; --dx: -110px; --dy: 200px; --rot: 350deg; animation-delay: 0.14s; }
-.gate-petal:nth-child(10) { left: 52%; top: 61%; --dx: 120px; --dy: 210px; --rot: -320deg; animation-delay: 0.13s; }
-.gate-petal:nth-child(11) { left: 46%; top: 51%; --dx: -220px; --dy: -90px; --rot: 190deg; animation-delay: 0.12s; }
-.gate-petal:nth-child(12) { left: 54%; top: 52%; --dx: 230px; --dy: -80px; --rot: -170deg; animation-delay: 0.13s; }
-.gate-petal:nth-child(13) { left: 50%; top: 50%; --dx: -30px; --dy: -260px; --rot: 130deg; animation-delay: 0.09s; }
-.gate-petal:nth-child(14) { left: 50%; top: 50%; --dx: 40px; --dy: -250px; --rot: -140deg; animation-delay: 0.1s; }
-.gate-petal:nth-child(15) { left: 48%; top: 65%; --dx: -60px; --dy: 250px; --rot: 260deg; animation-delay: 0.15s; }
-.gate-petal:nth-child(16) { left: 52%; top: 64%; --dx: 70px; --dy: 240px; --rot: -240deg; animation-delay: 0.14s; }
+.gate-petal:nth-child(1) { left: 48%; top: 52%; --dx: -140px; --dy: -210px; --rot: 240deg; animation-delay: 0.04s; }
+.gate-petal:nth-child(2) { left: 52%; top: 50%; --dx: 160px; --dy: -180px; --rot: -210deg; animation-delay: 0.06s; }
+.gate-petal:nth-child(3) { left: 49%; top: 55%; --dx: -210px; --dy: -40px; --rot: 180deg; animation-delay: 0.08s; }
+.gate-petal:nth-child(4) { left: 51%; top: 54%; --dx: 200px; --dy: -30px; --rot: -190deg; animation-delay: 0.05s; }
+.gate-petal:nth-child(5) { left: 47%; top: 58%; --dx: -180px; --dy: 140px; --rot: 300deg; animation-delay: 0.1s; }
+.gate-petal:nth-child(6) { left: 53%; top: 56%; --dx: 190px; --dy: 130px; --rot: -280deg; animation-delay: 0.09s; }
+.gate-petal:nth-child(7) { left: 50%; top: 48%; --dx: -80px; --dy: -260px; --rot: 150deg; animation-delay: 0.07s; }
+.gate-petal:nth-child(8) { left: 50%; top: 49%; --dx: 90px; --dy: -250px; --rot: -160deg; animation-delay: 0.08s; }
+.gate-petal:nth-child(9) { left: 48%; top: 62%; --dx: -120px; --dy: 230px; --rot: 350deg; animation-delay: 0.12s; }
+.gate-petal:nth-child(10) { left: 52%; top: 61%; --dx: 130px; --dy: 240px; --rot: -320deg; animation-delay: 0.11s; }
+.gate-petal:nth-child(11) { left: 46%; top: 51%; --dx: -240px; --dy: -100px; --rot: 190deg; animation-delay: 0.1s; }
+.gate-petal:nth-child(12) { left: 54%; top: 52%; --dx: 250px; --dy: -90px; --rot: -170deg; animation-delay: 0.11s; }
+.gate-petal:nth-child(13) { left: 50%; top: 50%; --dx: -40px; --dy: -290px; --rot: 130deg; animation-delay: 0.07s; }
+.gate-petal:nth-child(14) { left: 50%; top: 50%; --dx: 50px; --dy: -280px; --rot: -140deg; animation-delay: 0.08s; }
+.gate-petal:nth-child(15) { left: 48%; top: 65%; --dx: -70px; --dy: 280px; --rot: 260deg; animation-delay: 0.13s; }
+.gate-petal:nth-child(16) { left: 52%; top: 64%; --dx: 80px; --dy: 270px; --rot: -240deg; animation-delay: 0.12s; }
 
 @keyframes petalScatter {
   0% { opacity: 0; transform: translate3d(0, 0, 0) scale(0.4) rotate(0deg); }
   25% { opacity: 1; }
-  100% { opacity: 0; transform: translate3d(var(--dx), var(--dy), 0) scale(1.1) rotate(var(--rot)); }
+  100% { opacity: 0; transform: translate3d(var(--dx), var(--dy), 0) scale(1.15) rotate(var(--rot)); }
 }
 
-/* Seamless Double Gate Doors */
-.gate-doors-wrapper {
+/* Gate Stage - Holds whole door and 3D parting wings */
+.gate-doors-stage {
   position: absolute;
   inset: 0;
-  z-index: 5;
+  z-index: 3;
   overflow: hidden;
-  pointer-events: none;
+  perspective: 1200px;
 }
 
-.gate-door-half {
+/* Whole door shown when closed - NO gap, NO seam line, NO blank line */
+.gate-door-whole {
   position: absolute;
-  top: 0;
+  inset: 0;
   width: 100%;
   height: 100%;
-  overflow: hidden;
-  will-change: transform, opacity;
-  transition: transform 1.05s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s 0.75s;
+  transition: opacity 0.1s ease;
 }
 
-.left-door {
-  left: 0;
-  clip-path: polygon(0 0, 50.1% 0, 50.1% 100%, 0 100%);
-  transform-origin: left center;
-}
-
-.right-door {
-  left: 0;
-  clip-path: polygon(49.9% 0, 100% 0, 100% 100%, 49.9% 100%);
-  transform-origin: right center;
-}
-
-.gate-full-img {
+.gate-img-full {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -261,37 +220,104 @@ main {
   display: block;
 }
 
-.is-opening .left-door {
-  transform: translateX(-102%) scale(1.02);
+/* When opening: hide the whole static image and show the 3D parting wings */
+.is-opening .gate-door-whole {
   opacity: 0;
 }
 
-.is-opening .right-door {
-  transform: translateX(102%) scale(1.02);
-  opacity: 0;
-}
-
-.gate-seam-glow {
+.gate-door-wings-layer {
   position: absolute;
-  left: 50%;
-  top: 15%;
-  bottom: 15%;
-  width: 3px;
-  transform: translateX(-50%);
-  background: linear-gradient(180deg, transparent, rgba(255, 235, 170, 0.85), transparent);
-  box-shadow: 0 0 16px 4px rgba(255, 210, 110, 0.7);
-  opacity: 0.6;
+  inset: 0;
+  opacity: 0;
   pointer-events: none;
 }
 
-.is-opening .gate-seam-glow {
+.is-opening .gate-door-wings-layer {
   opacity: 1;
-  width: 14px;
-  box-shadow: 0 0 40px 18px rgba(255, 240, 180, 1);
-  transition: width 0.25s, box-shadow 0.25s;
 }
 
-/* Interactive Button at Bottom of Welcome Screen */
+.gate-door-wing {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50.2%; /* Overlap by 0.2% to guarantee ZERO seam line */
+  overflow: hidden;
+  will-change: transform;
+}
+
+.gate-door-wing.left-wing {
+  left: 0;
+  transform-origin: left center;
+}
+
+.gate-door-wing.right-wing {
+  right: 0;
+  transform-origin: right center;
+}
+
+.gate-wing-img {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 200%;
+  max-width: none;
+  object-fit: cover;
+}
+
+.left-wing .gate-wing-img {
+  left: 0;
+}
+
+.right-wing .gate-wing-img {
+  right: 0;
+}
+
+/* 3D Gate Swing Opening Animation */
+.is-opening .left-wing {
+  animation: leftWingOpen 1.15s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.is-opening .right-wing {
+  animation: rightWingOpen 1.15s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes leftWingOpen {
+  0% { transform: perspective(1000px) rotateY(0deg) translateX(0); }
+  100% { transform: perspective(1000px) rotateY(-88deg) translateX(-85%); opacity: 0.1; }
+}
+
+@keyframes rightWingOpen {
+  0% { transform: perspective(1000px) rotateY(0deg) translateX(0); }
+  100% { transform: perspective(1000px) rotateY(88deg) translateX(85%); opacity: 0.1; }
+}
+
+/* Light leak flare ray spilling through parting seam */
+.gate-light-leak {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  transform: translateX(-50%);
+  background: linear-gradient(180deg, rgba(255, 245, 205, 0) 0%, rgba(255, 235, 170, 0.95) 50%, rgba(255, 245, 205, 0) 100%);
+  box-shadow: 0 0 24px 8px rgba(255, 215, 110, 0.9);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 6;
+}
+
+.is-opening .gate-light-leak {
+  animation: lightLeakBurst 1.1s ease-out forwards;
+}
+
+@keyframes lightLeakBurst {
+  0% { opacity: 0; transform: translateX(-50%) scaleX(1); }
+  25% { opacity: 1; transform: translateX(-50%) scaleX(12); box-shadow: 0 0 60px 24px rgba(255, 230, 150, 1); }
+  75% { opacity: 0.85; transform: translateX(-50%) scaleX(28); }
+  100% { opacity: 0; transform: translateX(-50%) scaleX(38); }
+}
+
+/* Interactive CTA Button - Positioned gracefully at the bottom */
 .gate-action-area {
   position: absolute;
   left: 50%;
@@ -301,8 +327,7 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
-  width: min(90%, 360px);
+  width: min(90%, 350px);
   pointer-events: auto;
   transition: opacity 0.35s ease, transform 0.35s ease;
 }
@@ -328,11 +353,16 @@ main {
   box-shadow: 0 14px 34px rgba(26, 13, 6, 0.35), inset 0 1px 2px rgba(255, 255, 255, 0.8);
   cursor: pointer;
   text-align: left;
-  transition: transform 0.2s;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .open-gate-btn:hover {
-  transform: scale(1.02);
+  transform: scale(1.025);
+  box-shadow: 0 18px 40px rgba(26, 13, 6, 0.45);
+}
+
+.open-gate-btn:active {
+  transform: scale(0.98);
 }
 
 .btn-glow-ring {
@@ -370,19 +400,20 @@ main {
 }
 
 .btn-title {
-  font-family: Italiana, Georgia, serif;
-  font-size: 19px;
+  font-family: 'Cinzel', Italiana, Georgia, serif;
+  font-size: 18px;
   color: var(--ink-deep);
-  letter-spacing: 0.03em;
-  font-weight: 600;
+  letter-spacing: 0.04em;
+  font-weight: 700;
 }
 
 .btn-subtitle {
   font-size: 9px;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   color: #8f6032;
-  margin-top: 1px;
+  margin-top: 2px;
+  font-weight: 600;
 }
 
 .btn-sparkle {
@@ -394,14 +425,6 @@ main {
   0% { transform: rotate(0deg) scale(0.9); }
   50% { transform: rotate(180deg) scale(1.15); }
   100% { transform: rotate(360deg) scale(0.9); }
-}
-
-.tap-hint {
-  font-size: 10px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: rgba(255, 238, 205, 0.9);
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
 }
 
 .skip-gate-btn {
@@ -432,7 +455,7 @@ main {
 }
 
 /* =========================================================
-   2) HERO SECTION: FULL WIDTH 1st IMAGE & PERFECTLY CENTERED TEXT
+   2) HERO SECTION: ROYAL PALACE TERRACE & COUPLE NAMASTE PNG
    ========================================================= */
 .hero {
   position: relative;
@@ -443,47 +466,53 @@ main {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  background: var(--ink-deep);
+  background: linear-gradient(180deg, #1b0e07 0%, #29150b 35%, #3d1c0e 70%, #200f07 100%);
   text-align: center;
+  padding-bottom: 50px;
 }
 
-.hero-art {
+/* Atmospheric sunset terrace background with Ganges & mountains ambiance */
+.hero-backdrop {
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center top;
-  display: block;
-}
-
-.hero-scrim {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(25, 12, 5, 0.22) 0%,
-    rgba(25, 12, 5, 0) 36%,
-    rgba(25, 12, 5, 0.1) 72%,
-    rgba(22, 10, 4, 0.65) 100%
-  );
+  background: radial-gradient(circle at 50% 28%, rgba(245, 195, 110, 0.35) 0%, rgba(215, 130, 60, 0.18) 45%, transparent 75%),
+              linear-gradient(180deg, rgba(20, 10, 5, 0.45) 0%, transparent 40%, rgba(20, 10, 5, 0.7) 100%);
   pointer-events: none;
 }
 
-/* Placed in the clear sunset arch space above the couple's heads - mathematically centered */
+/* Hanging floral garland at top of hero section */
+.hero-top-garland {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  max-height: 120px;
+  object-fit: cover;
+  object-position: top center;
+  z-index: 6;
+  pointer-events: none;
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.45));
+  animation: garlandSway 8s ease-in-out infinite alternate;
+}
+
+@keyframes garlandSway {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-4px); }
+}
+
+/* Centered main invitation typography */
 .hero-copy {
   position: relative;
-  z-index: 5;
-  width: min(92%, 460px);
+  z-index: 10;
+  width: min(92%, 480px);
   margin-left: auto;
   margin-right: auto;
-  margin-top: clamp(24px, 6.2svh, 50px);
+  margin-top: clamp(48px, 9.5svh, 85px);
   padding: 0 12px;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  pointer-events: none;
 }
 
 .arch-header {
@@ -496,23 +525,24 @@ main {
 }
 
 .arch-lotus-glyph {
-  font-size: clamp(16px, 4vw, 22px);
+  font-size: clamp(18px, 4.5vw, 24px);
   display: block;
   margin: 0 auto;
   text-align: center;
-  filter: drop-shadow(0 2px 4px rgba(45, 20, 8, 0.3));
+  filter: drop-shadow(0 2px 8px rgba(255, 215, 120, 0.5));
 }
 
 .blessing {
-  font-size: clamp(9px, 2.3vw, 11px);
-  letter-spacing: 0.22em;
+  font-family: 'Cinzel', Marcellus, serif;
+  font-size: clamp(9.5px, 2.5vw, 12px);
+  letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: #44220b;
+  color: #f7e2be;
   font-weight: 600;
-  margin: 3px auto 2px;
+  margin: 4px auto 3px;
   text-align: center;
   width: 100%;
-  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.9), 0 2px 8px rgba(255, 245, 225, 0.95);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7), 0 0 12px rgba(245, 215, 140, 0.5);
 }
 
 .arch-filigree {
@@ -520,41 +550,50 @@ main {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  color: var(--gold);
+  color: var(--gold-light);
   font-size: 8px;
-  margin: 2px auto 4px;
+  margin: 2px auto 6px;
 }
 
 .arch-filigree i {
   display: inline-block;
-  width: 28px;
+  width: 32px;
   height: 1px;
-  background: var(--gold);
+  background: linear-gradient(90deg, transparent, var(--gold-light), transparent);
 }
 
-.hero h1 {
-  font: clamp(34px, 8.8vw, 56px)/0.96 Italiana, Georgia, serif;
-  margin: 3px auto 4px;
-  color: #381a09;
+/* Bride and Groom Names with royal typography & animated spring pop-up */
+.hero-names {
+  font-family: 'Cinzel', 'Playfair Display', Italiana, Georgia, serif;
+  font-size: clamp(34px, 8.8vw, 56px);
+  line-height: 1.05;
+  margin: 4px auto 6px;
+  color: #fff6e5;
   text-align: center;
   width: 100%;
-  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.95), 0 3px 12px rgba(255, 243, 218, 0.95);
+  font-weight: 700;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7), 0 0 24px rgba(255, 215, 140, 0.65);
+  letter-spacing: 0.02em;
 }
 
-.hero h1 span {
-  font: clamp(26px, 6.5vw, 40px) Parisienne, cursive;
-  color: var(--gold);
+.names-amp {
+  font-family: 'Great Vibes', Parisienne, cursive;
+  font-size: clamp(32px, 8vw, 48px);
+  color: var(--gold-bright);
   font-weight: 400;
+  display: inline-block;
   margin: 0 4px;
+  text-shadow: 0 0 16px rgba(255, 215, 100, 0.8);
 }
 
 .hero-invite-line {
-  font: clamp(15px, 3.8vw, 19px) Parisienne, cursive;
-  color: #6d3913;
-  margin: 1px auto 6px;
+  font-family: 'Great Vibes', Parisienne, cursive;
+  font-size: clamp(18px, 4.5vw, 24px);
+  color: #f8e5c8;
+  margin: 2px auto 8px;
   text-align: center;
   width: 100%;
-  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.9), 0 2px 8px rgba(255, 245, 225, 0.95);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8), 0 0 10px rgba(255, 220, 160, 0.4);
 }
 
 .date-rule {
@@ -562,309 +601,276 @@ main {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  font-size: clamp(10px, 2.4vw, 12px);
-  letter-spacing: 0.16em;
-  color: #3a1c0b;
-  background: rgba(255, 248, 235, 0.85);
-  backdrop-filter: blur(5px);
-  padding: 4px 14px;
+  font-family: 'Cinzel', Marcellus, serif;
+  font-size: clamp(10px, 2.5vw, 12px);
+  letter-spacing: 0.2em;
+  color: #ffecc7;
+  background: rgba(45, 22, 10, 0.7);
+  backdrop-filter: blur(8px);
+  padding: 5px 16px;
   border-radius: 999px;
-  border: 1px solid rgba(184, 123, 34, 0.45);
-  box-shadow: 0 3px 10px rgba(50, 22, 9, 0.1);
+  border: 1px solid rgba(245, 215, 140, 0.5);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
   margin: 0 auto;
 }
 
 .date-rule i {
   height: 1px;
   width: 22px;
-  background: var(--gold);
+  background: var(--gold-light);
 }
 
 .hero-destination {
-  font-size: clamp(9px, 2.3vw, 11px);
-  letter-spacing: 0.18em;
+  font-family: 'Cinzel', Marcellus, serif;
+  font-size: clamp(9.5px, 2.4vw, 11.5px);
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: #582f13;
-  margin: 6px auto 0;
+  color: #f5dfbe;
+  margin: 7px auto 0;
   font-weight: 600;
   text-align: center;
   width: 100%;
-  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.9);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+/* 2nd uploaded couple PNG (namaste pose with transparent background) below main text */
+.hero-couple-showcase {
+  position: relative;
+  z-index: 10;
+  width: min(88%, 380px);
+  margin: clamp(12px, 3svh, 28px) auto 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-couple-halo {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 115%;
+  height: 115%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 215, 130, 0.45) 0%, rgba(220, 140, 60, 0.18) 55%, transparent 75%);
+  filter: blur(28px);
+  pointer-events: none;
+  animation: haloBreathe 5s ease-in-out infinite alternate;
+}
+
+@keyframes haloBreathe {
+  0% { transform: translate(-50%, -50%) scale(0.95); opacity: 0.7; }
+  100% { transform: translate(-50%, -50%) scale(1.05); opacity: 1; }
+}
+
+.hero-couple-png {
+  position: relative;
+  width: 100%;
+  max-width: 340px;
+  height: auto;
+  display: block;
+  object-fit: contain;
+  filter: drop-shadow(0 16px 28px rgba(0, 0, 0, 0.65));
+  animation: coupleBreathe 6s ease-in-out infinite;
+}
+
+@keyframes coupleBreathe {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-7px) scale(1.012); }
 }
 
 .scroll-cue {
   position: absolute;
-  z-index: 5;
-  bottom: max(16px, env(safe-area-inset-bottom));
+  z-index: 12;
+  bottom: max(14px, env(safe-area-inset-bottom));
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 4px;
-  color: var(--ivory);
-  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.65);
-  animation: scrollBounce 2.2s ease-in-out infinite;
-  pointer-events: none;
-}
-
-.scroll-cue span {
-  font-size: 9px;
+  color: #edd9b9;
+  font-size: 9.5px;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  letter-spacing: 0.2em;
+  pointer-events: none;
+  animation: floatCue 2.2s ease-in-out infinite;
 }
 
-@keyframes scrollBounce {
-  0%, 100% { transform: translate(-50%, 0); }
-  50% { transform: translate(-50%, 7px); }
+@keyframes floatCue {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(5px); }
 }
 
 .leaf-float {
   position: absolute;
-  width: 150px;
-  height: 210px;
-  background: rgba(79, 87, 34, 0.16);
-  filter: blur(20px);
-  border-radius: 100% 0;
+  width: 60px;
+  height: 90px;
   pointer-events: none;
+  opacity: 0.25;
+  background-size: contain;
+  background-repeat: no-repeat;
+  z-index: 4;
 }
 
 .leaf-float.left {
-  left: -90px;
-  top: 18%;
+  left: 8px;
+  top: 30%;
 }
 
 .leaf-float.right {
-  right: -100px;
-  top: 32%;
-}
-
-/* =========================================================
-   LANTERNS & ATMOSPHERE
-   ========================================================= */
-.lantern-atmosphere {
-  position: absolute;
-  inset: 0;
-  z-index: 6;
-  overflow: hidden;
-  pointer-events: none;
-  mix-blend-mode: multiply;
-}
-
-.atmos-lantern {
-  --scale: 1;
-  --blur: 0px;
-  --delay: 0s;
-  position: absolute;
-  width: 34px;
-  height: 88px;
-  display: block;
-  opacity: calc(0.18 + var(--scale) * 0.16);
-  filter: blur(var(--blur)) drop-shadow(0 7px 9px rgba(90, 51, 16, 0.16));
-  transform: translateX(-50%) scale(var(--scale));
-  transform-origin: center top;
-  will-change: transform;
-  animation: lanternSway 5.5s var(--delay) ease-in-out infinite alternate;
-}
-
-.lantern-chain {
-  position: absolute;
-  width: 1px;
-  height: 25px;
-  left: 50%;
-  top: -20px;
-  background: linear-gradient(#a66d1d, #dfb65f);
-}
-
-.lantern-cap {
-  position: absolute;
-  left: 7px;
-  top: 4px;
-  width: 20px;
-  height: 8px;
-  border-radius: 50% 50% 2px 2px;
-  background: linear-gradient(90deg, #805014, #d99a2d, #825016);
-}
-
-.lantern-body {
-  position: absolute;
-  left: 5px;
-  top: 12px;
-  width: 24px;
-  height: 38px;
-  border: 2px solid #a56b18;
-  border-radius: 7px 7px 12px 12px;
-  background: radial-gradient(circle at 50% 55%, rgba(255, 219, 113, 0.8), rgba(229, 147, 35, 0.22) 54%, rgba(109, 61, 12, 0.16));
-  box-shadow: inset 0 0 8px rgba(255, 220, 121, 0.45);
-}
-
-.lantern-body:before, .lantern-body:after {
-  content: '';
-  position: absolute;
-  top: 1px;
-  bottom: 1px;
-  width: 1px;
-  background: rgba(137, 83, 16, 0.5);
-}
-
-.lantern-body:before { left: 6px; }
-.lantern-body:after { right: 6px; }
-
-.lantern-flame {
-  position: absolute;
-  left: 8px;
-  bottom: 6px;
-  width: 5px;
-  height: 12px;
-  border-radius: 60% 45% 55% 45%;
-  background: #ef9e25;
-  box-shadow: 0 0 12px 5px rgba(240, 160, 43, 0.36);
-  transform-origin: center bottom;
-}
-
-.lantern-tail {
-  position: absolute;
-  left: 14px;
-  top: 51px;
-  width: 6px;
-  height: 18px;
-  border-left: 1px solid #a56b18;
-  border-right: 1px solid #a56b18;
-}
-
-.lantern-tail:after {
-  content: '◆';
-  position: absolute;
-  left: -3px;
-  top: 12px;
-  color: #a56b18;
-  font-size: 9px;
-}
-
-@keyframes lanternSway {
-  to { transform: translateX(-50%) scale(var(--scale)) rotate(3deg); }
+  right: 8px;
+  top: 55%;
 }
 
 /* =========================================================
    COUNTDOWN SECTION
    ========================================================= */
-section {
-  position: relative;
-  padding: 84px 22px;
-}
-
 .count-section {
+  padding: 58px 18px 48px;
   text-align: center;
-  background: #54341c;
+  background: linear-gradient(180deg, #1c0e07 0%, #29150b 100%);
   color: var(--ivory);
-  background-image: radial-gradient(circle at 25% 20%, rgba(199, 93, 115, 0.2), transparent 40%), linear-gradient(135deg, #54341c, #3d2313);
 }
 
 .kicker {
+  font-family: 'Cinzel', Marcellus, serif;
+  font-size: 10.5px;
   text-transform: uppercase;
-  letter-spacing: 0.22em;
-  font-size: 10px;
-  color: #efd097;
+  letter-spacing: 0.24em;
+  color: var(--gold-light);
+  margin-bottom: 6px;
+  font-weight: 600;
 }
 
-.count-section h2, .events h2, .story h2, .venue h2, footer h2 {
-  font: 40px/1.05 Italiana, Georgia, serif;
-  margin: 10px auto 30px;
+.count-section h2 {
+  font: clamp(28px, 6.5vw, 42px)/1.1 'Cinzel', Italiana, Georgia, serif;
+  margin: 6px 0 24px;
+  color: #fff6e8;
+  font-weight: 700;
 }
 
 .countdown {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
-  max-width: 520px;
-  margin: auto;
+  display: flex;
+  justify-content: center;
+  gap: clamp(8px, 2.8vw, 16px);
+  margin-top: 18px;
+}
+
+.count-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
 }
 
 .flip {
-  height: 72px;
+  width: clamp(54px, 16vw, 74px);
+  height: clamp(58px, 17vw, 78px);
+  border-radius: 12px;
+  background: linear-gradient(145deg, #381c0f, #231108);
+  border: 1px solid rgba(245, 215, 140, 0.4);
   display: grid;
   place-items: center;
-  perspective: 500px;
-  background: #fff4dc;
-  color: var(--ink-deep);
-  border: 1px solid #c8964b;
-  border-radius: 12px;
-  box-shadow: inset 0 -34px rgba(184, 123, 34, 0.08), 0 8px 18px rgba(28, 14, 7, 0.25);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.15);
 }
 
 .flip span {
-  font: 36px Italiana, Georgia, serif;
+  font: clamp(24px, 7vw, 36px) 'Cinzel', Italiana, Georgia, serif;
+  color: var(--gold-bright);
+  font-weight: 700;
 }
 
 .count-unit small {
-  display: block;
-  margin-top: 9px;
+  font-size: 9.5px;
   text-transform: uppercase;
-  letter-spacing: 0.14em;
-  font-size: 9px;
-  color: #efd097;
+  letter-spacing: 0.16em;
+  color: #edd9b9;
 }
 
 /* =========================================================
-   SCRATCH-TO-REVEAL DATE SECTION
+   SCRATCH-TO-REVEAL DATE SECTION (19 & 20)
    ========================================================= */
 .scratch-section {
-  overflow: hidden;
+  position: relative;
+  padding: 64px 18px;
+  background: #2a160c;
+  color: var(--ivory);
   text-align: center;
-  background: linear-gradient(180deg, #fff2d6, #eed5a7);
-  padding-block: 76px;
+  overflow: hidden;
+}
+
+.script {
+  font: clamp(22px, 5.5vw, 30px) 'Great Vibes', Parisienne, cursive;
+  color: var(--gold-bright);
+  margin-bottom: 2px;
 }
 
 .scratch-section h2 {
-  font: 40px/1.05 Italiana, Georgia, serif;
-  margin: 8px auto 26px;
-  max-width: 340px;
+  font: clamp(26px, 6vw, 38px)/1.15 'Cinzel', Italiana, Georgia, serif;
+  color: #fff6e8;
+  margin: 4px 0 24px;
+  font-weight: 700;
 }
 
 .scratch-card {
   position: relative;
-  width: min(100%, 350px);
-  height: 220px;
-  margin: auto;
-  border: 1.5px solid #bd822f;
+  width: min(92%, 360px);
+  min-height: 190px;
+  margin: 0 auto;
   border-radius: 18px;
   overflow: hidden;
-  box-shadow: 0 18px 45px rgba(97, 55, 22, 0.22);
-  background: #fff3da;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5), 0 0 0 1.5px rgba(245, 215, 140, 0.45);
+  background: linear-gradient(145deg, #fffaf0, #f8ebd2);
+  color: var(--ink-deep);
 }
 
 .date-reveal {
   position: absolute;
   inset: 0;
-  display: grid;
-  place-content: center;
-  background: radial-gradient(circle, #fff9ee, #f5ddb0);
-  color: var(--ink);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  text-align: center;
 }
 
 .date-reveal small {
+  font-family: 'Cinzel', Marcellus, serif;
+  font-size: 11px;
   text-transform: uppercase;
-  letter-spacing: 0.25em;
-  font-size: 9px;
-  color: #8c5b2b;
+  letter-spacing: 0.2em;
+  color: #8c5a2c;
+  font-weight: 600;
 }
 
 .date-reveal b {
-  font: 64px/0.95 Italiana, Georgia, serif;
-  color: var(--rose);
-  margin: 4px 0;
+  font-family: 'Cinzel', Italiana, Georgia, serif;
+  font-size: clamp(38px, 10vw, 54px);
+  color: #4a220b;
+  margin: 4px 0 2px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  background: linear-gradient(135deg, #6d3311, #a75d1d, #6d3311);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .date-reveal span {
-  font: 18px Italiana, Georgia, serif;
-  letter-spacing: 0.08em;
-  color: var(--ink-deep);
+  font-family: 'Cinzel', Marcellus, serif;
+  font-size: 13.5px;
+  letter-spacing: 0.16em;
+  color: #6d3913;
+  font-weight: 600;
 }
 
 .date-reveal em {
-  font: 22px Parisienne, cursive;
-  color: var(--gold);
+  font-style: normal;
+  font-size: 11px;
+  color: #8f6032;
   margin-top: 6px;
+  letter-spacing: 0.12em;
 }
 
 .scratch-card canvas {
@@ -872,99 +878,67 @@ section {
   inset: 0;
   width: 100%;
   height: 100%;
+  cursor: grab;
   touch-action: none;
-  transition: opacity 0.7s;
-  cursor: crosshair;
+  transition: opacity 0.4s ease;
 }
 
 .scratch-hint {
-  font-size: 10px;
-  text-transform: uppercase;
+  font-size: 11.5px;
   letter-spacing: 0.14em;
+  color: #eeddc2;
   margin-top: 18px;
-  color: #83562a;
-}
-
-.float-field {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-}
-
-.float-field i {
-  --i: 0;
-  position: absolute;
-  left: calc((var(--i) * 31%) % 100%);
-  top: calc((var(--i) * 17%) % 92%);
-  color: rgba(199, 93, 115, 0.25);
-  font-size: calc(18px + (var(--i) % 4) * 8px);
-  animation: floatPetal calc(4s + (var(--i) % 5) * 1s) ease-in-out infinite alternate;
-  animation-delay: calc(var(--i) * -0.4s);
 }
 
 /* =========================================================
    STORY SECTION
    ========================================================= */
-.ornamental:before, .ornamental:after {
-  content: '❦';
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  color: var(--gold);
-  font-size: 24px;
-}
-
-.ornamental:before { top: 22px; }
-.ornamental:after { bottom: 22px; transform: translateX(-50%) rotate(180deg); }
-
 .story {
+  padding: 64px 20px;
   text-align: center;
-  background-color: var(--paper);
-  background-image: radial-gradient(#c99b6650 0.6px, transparent 0.8px);
-  background-size: 8px 8px;
+  background: #f7eedb;
+  color: var(--ink);
 }
 
 .story-inner {
-  max-width: 620px;
-  margin: auto;
-}
-
-.script {
-  font: 28px Parisienne, cursive;
-  color: var(--rose);
-  margin: 6px 0;
+  max-width: 520px;
+  margin: 0 auto;
 }
 
 .story h2 {
-  margin-bottom: 22px;
+  font: clamp(28px, 6.5vw, 40px)/1.1 'Cinzel', Italiana, Georgia, serif;
+  color: #44220c;
+  margin: 6px 0 16px;
+  font-weight: 700;
 }
 
-.story-inner > p:not(.script) {
-  font-size: 16px;
-  line-height: 1.85;
-  color: #55331c;
+.story p:not(.script) {
+  font-size: 15px;
+  line-height: 1.8;
+  color: #5c351b;
+  margin: 0 auto;
 }
 
 .signature {
-  margin-top: 26px;
-  font: 32px Parisienne, cursive;
-  color: var(--gold);
+  font-family: 'Great Vibes', Parisienne, cursive;
+  font-size: clamp(26px, 6.5vw, 36px);
+  color: var(--gold-dark);
+  margin-top: 24px;
 }
 
 .signature i {
-  color: var(--rose);
   font-style: normal;
-  margin: 0 4px;
+  color: var(--gold);
 }
 
 /* =========================================================
-   3) "PAINTED IN SUNSHINE BEFORE FOREVER BEGINS" (HALDI SECTION)
-   FULL WIDTH EXACT IMAGE - NO BOX CARD, NO DUPLICATE TEXT
+   3) "BEFORE FOREVER BEGINS" (1st UPLOADED IMAGE)
+   HIGH QUALITY FULL-WIDTH EDGE-TO-EDGE PRESENTATION
    ========================================================= */
 .ceremony-moment {
   position: relative;
   padding: 0;
-  background: #fdf6e7;
+  background: #1d0f08;
   overflow: hidden;
   text-align: center;
 }
@@ -987,242 +961,246 @@ section {
 
 .ceremony-subcue {
   padding: 18px 20px 24px;
-  background: linear-gradient(180deg, #fceecf 0%, var(--ivory) 100%);
+  background: linear-gradient(180deg, #1d0f08 0%, #28140b 100%);
   text-align: center;
 }
 
 .ceremony-subcue span {
   display: inline-block;
+  font-family: 'Cinzel', Marcellus, serif;
   font-size: 10px;
   text-transform: uppercase;
-  letter-spacing: 0.22em;
-  color: #8c5a2c;
+  letter-spacing: 0.24em;
+  color: var(--gold-light);
   font-weight: 600;
 }
 
 .floating-glass {
   position: absolute;
-  z-index: 3;
-  display: grid;
-  place-items: center;
-  width: 76px;
-  height: 76px;
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  border-radius: 50%;
-  background: rgba(255, 240, 210, 0.28);
-  backdrop-filter: blur(8px);
-  color: rgba(212, 107, 131, 0.85);
-  font-size: 38px;
-  box-shadow: inset 0 1px rgba(255, 255, 255, 0.5), 0 10px 30px rgba(70, 35, 12, 0.15);
+  color: rgba(255, 220, 150, 0.4);
+  font-size: 26px;
   pointer-events: none;
-  animation: glassFloat 5s ease-in-out infinite alternate;
+  z-index: 5;
 }
 
-.lotus-one { right: -12px; top: 12%; }
-.lotus-two { left: -18px; top: 48%; width: 62px; height: 62px; animation-delay: -2s; }
+.lotus-one { top: 12%; left: 8%; animation: floatSoft 5s ease-in-out infinite; }
+.lotus-two { top: 35%; right: 8%; animation: floatSoft 6s ease-in-out infinite 1s; }
+.floating-diya { position: absolute; bottom: 8%; right: 12%; color: rgba(255, 200, 100, 0.45); font-size: 22px; z-index: 5; animation: floatSoft 4.5s ease-in-out infinite 0.5s; }
 
-.floating-diya {
-  position: absolute;
-  z-index: 3;
-  right: 8%;
-  top: 56%;
-  font-size: 54px;
-  color: rgba(245, 168, 48, 0.78);
-  filter: drop-shadow(0 0 14px rgba(245, 168, 48, 0.5));
-  animation: flame 2.4s ease-in-out infinite alternate;
-  pointer-events: none;
-}
-
-@keyframes floatPetal {
-  to { transform: translate3d(16px, -24px, 0) rotate(20deg); }
-}
-
-@keyframes glassFloat {
-  to { transform: translate3d(8px, -28px, 0) rotate(8deg); }
-}
-
-@keyframes flame {
-  to { transform: translateY(-8px) scale(1.06); opacity: 0.92; }
+@keyframes floatSoft {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
 }
 
 /* =========================================================
-   EVENTS SECTION
+   4) WEDDING FESTIVITIES WITH FESTIVE VIBRATION MOTION
    ========================================================= */
 .events {
-  background: var(--ivory);
-  padding-inline: 18px;
-}
-
-.events > div:first-child {
+  padding: 68px 18px 72px;
+  background: #fdf7ec;
+  color: var(--ink);
   text-align: center;
 }
 
+.events h2 {
+  font: clamp(30px, 7vw, 44px)/1.1 'Cinzel', Italiana, Georgia, serif;
+  color: #43210b;
+  margin: 0 0 8px;
+  font-weight: 700;
+}
+
 .section-intro {
-  line-height: 1.6;
-  color: #724c30;
-  max-width: 440px;
-  margin: 0 auto;
+  font-size: 13.5px;
+  color: #724622;
+  margin: 0 0 36px;
+  letter-spacing: 0.04em;
 }
 
 .event-list {
-  max-width: 760px;
-  margin: 38px auto 0;
+  display: grid;
+  gap: 20px;
+  max-width: 580px;
+  margin: 0 auto;
 }
 
 .event {
-  position: relative;
-  border-top: 1px solid rgba(184, 123, 34, 0.35);
-  padding: 30px 8px 34px 50px;
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 16px;
+  padding: 24px;
+  border-radius: 18px;
+  background: #fffdf8;
+  border: 1px solid rgba(184, 123, 34, 0.28);
+  box-shadow: 0 8px 24px rgba(60, 30, 10, 0.08);
+  text-align: left;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.event.featured {
+  border-color: rgba(184, 123, 34, 0.65);
+  background: linear-gradient(145deg, #fffef9, #fff9ee);
+  box-shadow: 0 12px 32px rgba(184, 123, 34, 0.16);
+}
+
+/* Subtle festive vibration / heartbeat motion */
+.event-vibe-card {
+  will-change: transform;
+}
+
+.event-vibe-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 34px rgba(60, 30, 10, 0.14);
+}
+
+.event-icon-vibe {
+  display: inline-block;
+  animation: festiveIconShake 4s ease-in-out infinite;
+}
+
+@keyframes festiveIconShake {
+  0%, 82%, 100% { transform: scale(1) rotate(0deg); }
+  85% { transform: scale(1.18) rotate(-7deg); }
+  90% { transform: scale(1.18) rotate(7deg); }
+  95% { transform: scale(1.12) rotate(-3deg); }
 }
 
 .event-number {
-  position: absolute;
-  left: 3px;
-  top: 32px;
-  font: 18px Italiana, Georgia, serif;
+  font-family: 'Cinzel', Italiana, Georgia, serif;
+  font-size: 24px;
   color: var(--gold);
+  font-weight: 700;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 4px;
 }
 
 .event-icon {
   font-size: 22px;
-  color: var(--rose);
+  margin-bottom: 6px;
 }
 
 .event h3 {
-  font: 34px Italiana, Georgia, serif;
-  margin: 4px 0;
-  color: var(--ink-deep);
+  font: 22px/1.2 'Cinzel', Italiana, Georgia, serif;
+  color: #3f1e09;
+  margin: 4px 0 8px;
+  font-weight: 700;
 }
 
 .event p {
-  font-style: italic;
-  color: #764e32;
-  line-height: 1.5;
-  margin: 6px 0 20px;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: #633a1c;
+  margin: 0 0 14px;
 }
 
 .event dl {
   display: grid;
-  gap: 10px;
-  margin: 0;
-}
-
-.event dl div {
-  display: grid;
-  grid-template-columns: 62px 1fr;
   gap: 8px;
+  border-top: 1px dashed rgba(184, 123, 34, 0.25);
+  padding-top: 12px;
+  margin: 0;
+  font-size: 12.5px;
 }
 
 .event dt {
+  font-family: 'Cinzel', Marcellus, serif;
+  font-size: 10px;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
-  font-size: 9px;
-  color: #9e642c;
+  letter-spacing: 0.14em;
+  color: #8c5a2c;
   font-weight: 600;
 }
 
 .event dd {
-  margin: 0;
-  font-size: 13.5px;
-  color: #442614;
-}
-
-.event.featured {
-  margin: 0 -4px;
-  padding: 34px 14px 36px 54px;
-  border: 1.5px solid #c9933e;
-  background: rgba(242, 218, 168, 0.38);
-  border-radius: var(--radius);
-  box-shadow: 0 10px 28px rgba(80, 42, 14, 0.08);
+  margin: 1px 0 0;
+  color: #3b1b08;
+  font-weight: 600;
 }
 
 /* =========================================================
    VENUE SECTION
    ========================================================= */
 .venue {
+  padding: 68px 18px;
   text-align: center;
-  background: var(--paper);
-}
-
-.venue > div {
-  max-width: 640px;
-  margin: auto;
+  background: #f7eedb;
+  color: var(--ink);
 }
 
 .venue h2 {
-  margin-bottom: 10px;
+  font: clamp(28px, 6.5vw, 42px)/1.1 'Cinzel', Italiana, Georgia, serif;
+  color: #42200a;
+  margin: 6px 0 8px;
+  font-weight: 700;
 }
 
-.venue > div > p:not(.script) {
-  font-size: 13.5px;
-  color: #633c1d;
-  line-height: 1.6;
+.venue p:not(.script) {
+  font-size: 14.5px;
+  color: #633b1e;
+  max-width: 440px;
+  margin: 0 auto 28px;
 }
 
 .google-map {
   position: relative;
-  height: 330px;
-  margin: 32px 0 26px;
+  width: min(100%, 560px);
+  height: 320px;
+  border-radius: 20px;
   overflow: hidden;
-  border: 1.5px solid #c28c46;
-  border-radius: var(--radius);
-  background: var(--paper);
-  box-shadow: 0 18px 45px rgba(85, 46, 17, 0.18);
+  margin: 0 auto 28px;
+  border: 1.5px solid rgba(184, 123, 34, 0.35);
+  box-shadow: 0 12px 32px rgba(60, 30, 10, 0.12);
 }
 
 .google-map iframe {
-  position: absolute;
-  inset: 0;
   width: 100%;
   height: 100%;
-  border: 0;
-  filter: saturate(0.85) sepia(0.12) contrast(0.96);
+  border: none;
 }
 
 .map-overlay {
   position: absolute;
+  bottom: 12px;
   left: 12px;
   right: 12px;
-  bottom: 12px;
-  z-index: 2;
-  padding: 12px 16px;
-  border: 1px solid rgba(255, 240, 205, 0.8);
-  border-radius: 14px;
-  background: rgba(255, 244, 222, 0.94);
-  backdrop-filter: blur(12px);
-  box-shadow: 0 8px 24px rgba(65, 34, 12, 0.2);
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: rgba(255, 250, 240, 0.94);
+  backdrop-filter: blur(8px);
   text-align: left;
-  pointer-events: none;
+  border: 1px solid rgba(184, 123, 34, 0.3);
 }
 
 .map-overlay span {
   display: flex;
   align-items: center;
-  gap: 6px;
-  color: var(--rose);
-  text-transform: uppercase;
+  gap: 5px;
+  font-size: 9px;
   letter-spacing: 0.14em;
-  font-size: 8.5px;
+  text-transform: uppercase;
+  color: var(--gold-dark);
   font-weight: 600;
 }
 
 .map-overlay b {
   display: block;
-  background: none;
-  padding: 0;
-  margin: 3px 0 2px;
-  font: 18px Italiana, Georgia, serif;
+  font-family: 'Cinzel', Italiana, Georgia, serif;
+  font-size: 15px;
   color: var(--ink-deep);
+  margin: 2px 0 1px;
 }
 
 .map-overlay small {
   font-size: 9.5px;
-  color: #825c38;
+  color: #7a4e28;
 }
 
 .actions {
   display: grid;
   gap: 12px;
+  max-width: 420px;
+  margin: 0 auto;
 }
 
 .button {
@@ -1235,8 +1213,10 @@ section {
   justify-content: center;
   gap: 9px;
   font-size: 13.5px;
-  transition: transform 0.2s, background 0.2s, box-shadow 0.2s;
+  font-weight: 600;
+  letter-spacing: 0.04em;
   cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .button:active {
@@ -1244,92 +1224,214 @@ section {
 }
 
 .primary {
-  background: var(--olive);
+  background: #4f5722;
   color: var(--ivory);
-  border: 1px solid var(--olive);
-  box-shadow: 0 6px 18px rgba(79, 87, 34, 0.25);
+  border: 1px solid #4f5722;
+  box-shadow: 0 6px 18px rgba(79, 87, 34, 0.3);
 }
 
 .primary:hover {
-  background: #41481a;
+  background: #40471a;
 }
 
 .secondary {
-  background: rgba(255, 245, 228, 0.7);
+  background: rgba(255, 248, 235, 0.85);
   border: 1.5px solid var(--gold);
-  color: var(--ink);
+  color: var(--ink-deep);
 }
 
 .secondary:hover {
-  background: rgba(255, 245, 228, 0.95);
+  background: rgba(255, 248, 235, 1);
 }
 
 /* =========================================================
-   FOOTER
+   5) FOOTER / LAST PAGE: 4th UPLOADED IMAGE & POP-UP WORDING
    ========================================================= */
-footer {
+.footer-last-page {
   position: relative;
-  height: 560px;
+  min-height: 620px;
   overflow: hidden;
-  display: grid;
-  place-items: end center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
   text-align: center;
   color: var(--ivory);
+  background: linear-gradient(180deg, #261208 0%, #36170a 40%, #1c0a04 100%);
+  padding: 60px 18px 24px;
 }
 
-footer > img {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center top;
-}
-
-.footer-overlay {
+.footer-bg-glow {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(42, 22, 10, 0.15) 0%, rgba(38, 19, 9, 0.45) 45%, rgba(28, 13, 6, 0.92) 100%);
+  background: radial-gradient(circle at 50% 40%, rgba(255, 215, 130, 0.22) 0%, rgba(180, 80, 40, 0.12) 55%, transparent 75%);
+  pointer-events: none;
 }
 
-.footer-copy {
+/* 4th uploaded couple image (lifting pose cutout) */
+.footer-couple-wrap {
   position: relative;
-  padding: 40px 24px 20px;
+  z-index: 5;
+  width: min(85%, 340px);
+  margin: 0 auto;
+}
+
+.footer-couple-halo {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 120%;
+  height: 120%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 215, 130, 0.35) 0%, rgba(200, 110, 50, 0.12) 60%, transparent 75%);
+  filter: blur(32px);
+  pointer-events: none;
+}
+
+.footer-couple-art {
+  position: relative;
   width: 100%;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  height: auto;
+  max-width: 320px;
+  display: block;
+  margin: 0 auto;
+  object-fit: contain;
+  filter: drop-shadow(0 18px 32px rgba(0, 0, 0, 0.65));
 }
 
-.footer-copy p {
-  font: 26px Parisienne, cursive;
-  margin: 6px 0;
+/* Dynamic pop-up wording container */
+.footer-popup-copy {
+  position: relative;
+  z-index: 8;
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+}
+
+.footer-sparkle {
+  color: var(--gold-bright);
+  filter: drop-shadow(0 0 10px rgba(255, 220, 120, 0.8));
+  margin-bottom: 6px;
+}
+
+.footer-kicker {
+  font-family: 'Great Vibes', Parisienne, cursive;
+  font-size: clamp(22px, 5.5vw, 30px);
   color: #fff2da;
+  margin: 2px 0 6px;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
 }
 
-.footer-copy h2 {
-  font-size: 46px;
-  margin: 6px 0;
+.footer-names {
+  font-family: 'Cinzel', Italiana, Georgia, serif;
+  font-size: clamp(34px, 8.5vw, 52px);
+  color: #fff6e8;
+  font-weight: 700;
+  margin: 2px 0 6px;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.9), 0 0 24px rgba(255, 215, 130, 0.5);
 }
 
-.footer-copy h2 i {
-  color: #efc477;
+.footer-names i {
+  font-family: 'Great Vibes', Parisienne, cursive;
+  color: var(--gold-bright);
   font-style: normal;
+  font-weight: 400;
 }
 
-.footer-copy span {
-  font-size: 11px;
+.footer-dates {
+  font-family: 'Cinzel', Marcellus, serif;
+  font-size: clamp(10px, 2.5vw, 12px);
   text-transform: uppercase;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.22em;
   color: #e8caa0;
+  margin-top: 4px;
+}
+
+.footer-credit {
+  position: relative;
+  z-index: 8;
+  display: block;
+  margin-top: 24px;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: rgba(255, 242, 214, 0.45);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.footer-credit:hover {
+  color: rgba(255, 242, 214, 0.85);
+}
+
+/* =========================================================
+   ATMOSPHERIC LANTERNS
+   ========================================================= */
+.lantern-atmosphere {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 30;
+  overflow: hidden;
+}
+
+.atmos-lantern {
+  position: absolute;
+  transform: translate(-50%, -50%) scale(var(--scale));
+  filter: blur(var(--blur));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.lantern-chain {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(180deg, rgba(184, 123, 34, 0.2), rgba(184, 123, 34, 0.6));
+}
+
+.lantern-cap {
+  width: 18px;
+  height: 6px;
+  background: #8b5219;
+  border-radius: 4px 4px 0 0;
+}
+
+.lantern-body {
+  position: relative;
+  width: 20px;
+  height: 28px;
+  border-radius: 6px;
+  background: rgba(255, 200, 100, 0.25);
+  border: 1px solid rgba(255, 220, 140, 0.6);
+  box-shadow: 0 0 16px 6px rgba(255, 180, 60, 0.45);
+  display: grid;
+  place-items: center;
+}
+
+.lantern-flame {
+  width: 6px;
+  height: 10px;
+  border-radius: 50% 50% 35% 35%;
+  background: #ffea9f;
+  box-shadow: 0 0 8px 2px #ff9a2b;
+}
+
+.lantern-tail {
+  width: 2px;
+  height: 8px;
+  background: #8b5219;
 }
 
 /* =========================================================
    RESPONSIVE DESIGN
    ========================================================= */
 @media (min-width: 768px) {
-  .hero-art {
-    object-position: center 25%;
-  }
-  .hero-copy {
-    margin-top: clamp(36px, 9svh, 80px);
+  .hero-names {
+    font-size: 58px;
   }
   .events {
     padding-inline: 8vw;
@@ -1337,17 +1439,11 @@ footer > img {
   .event dl {
     grid-template-columns: repeat(3, 1fr);
   }
-  .event dl div {
-    display: block;
-  }
-  .event dd {
-    margin-top: 5px;
-  }
   .actions {
     grid-template-columns: 1fr 1fr;
   }
-  footer {
-    height: 680px;
+  .footer-last-page {
+    min-height: 720px;
   }
 }
 
@@ -1358,8 +1454,5 @@ footer > img {
   *, *:before, *:after {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
-  }
-  .atmos-lantern {
-    transform: translateX(-50%) scale(var(--scale));
   }
 }

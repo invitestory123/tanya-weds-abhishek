@@ -144,7 +144,7 @@ function ScratchDate(){
         <div className="scratch-card">
           <div className="date-reveal">
             <small>Thursday & Friday</small>
-            <b>19 · 20</b>
+            <b>19 & 20</b>
             <span>November · 2026</span>
             <em>Rishikesh, Uttarakhand</em>
           </div>
@@ -162,7 +162,7 @@ function ScratchDate(){
   );
 }
 
-// Royal Palace Gate Welcome with Seamless Door Opening Animation
+// Royal Palace Gate Welcome with Cinematic 3D Door Opening & Video Effects
 function RoyalGateWelcome({onEnter}:{onEnter:()=>void}){
   const [opening, setOpening] = useState(false);
 
@@ -172,52 +172,62 @@ function RoyalGateWelcome({onEnter}:{onEnter:()=>void}){
     // Smooth transition into the invitation
     setTimeout(() => {
       onEnter();
-    }, 1100);
+    }, 1150);
   };
 
   return (
     <div
       className={`royal-welcome ${opening ? 'is-opening' : ''}`}
-      onClick={handleOpen}
-      role="button"
-      tabIndex={0}
-      aria-label="Open Tanya & Abhishek wedding invitation"
-      onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') handleOpen(); }}
+      role="dialog"
+      aria-modal="true"
+      aria-label="Tanya & Abhishek royal wedding invitation entry"
     >
-      {/* Background preview of hero couple revealed as doors part */}
-      <div className="gate-backdrop-reveal" aria-hidden="true">
-        <img src="/assets/hero-couple.jpg" alt="" className="gate-backdrop-img" />
-        <div className="gate-divine-glow" />
-      </div>
+      {/* Ambient background glow & atmospheric light */}
+      <div className="gate-ambient-glow" aria-hidden="true" />
 
       {/* Floating flower petals */}
       <div className="gate-petals-burst" aria-hidden="true">
-        {Array.from({length: 16}, (_, i) => (
+        {Array.from({length: 22}, (_, i) => (
           <span key={i} className={`gate-petal petal-${i}`} />
         ))}
       </div>
 
-      {/* Seamless Royal Double Doors: perfectly intact before clicking, parting on click */}
-      <div className="gate-doors-wrapper" aria-hidden="true">
-        <div className="gate-door-half left-door">
-          <img src="/assets/gate-open.jpg" alt="Left palace gate" className="gate-full-img" />
+      {/* 
+        Seamless Double Doors:
+        When closed: rendered as ONE seamless image without any subpixel gap or center line.
+        When opening: parts into left & right 3D swinging wings with divine golden light rays.
+      */}
+      <div className="gate-doors-stage" aria-hidden="true">
+        {/* Whole door visible initially so there is NO blank seam line */}
+        <div className="gate-door-whole">
+          <img
+            src="/assets/gate-open.jpg"
+            alt="Royal Palace Gate with T&A Seal"
+            className="gate-img-full"
+          />
         </div>
-        <div className="gate-door-half right-door">
-          <img src="/assets/gate-open.jpg" alt="Right palace gate" className="gate-full-img" />
+
+        {/* 3D Parting Wings active during opening */}
+        <div className="gate-door-wings-layer">
+          <div className="gate-door-wing left-wing">
+            <img src="/assets/gate-open.jpg" alt="" className="gate-wing-img" />
+          </div>
+          <div className="gate-door-wing right-wing">
+            <img src="/assets/gate-open.jpg" alt="" className="gate-wing-img" />
+          </div>
         </div>
-        <div className="gate-seam-glow" />
+
+        {/* Cinematic sunbeam flare leaking through the parting seam */}
+        <div className="gate-light-leak" />
       </div>
 
-      {/* Interactive CTA Button overlaid on the bottom pill */}
+      {/* Interactive CTA Button - Only ONE clean button, without redundant tap hint */}
       <div className="gate-action-area">
         <button
           type="button"
           aria-label="Open Tanya and Abhishek's wedding invitation"
           className="open-gate-btn"
-          onClick={e => {
-            e.stopPropagation();
-            handleOpen();
-          }}
+          onClick={handleOpen}
         >
           <span className="btn-glow-ring" />
           <span className="btn-lotus-seal">🪷</span>
@@ -227,16 +237,12 @@ function RoyalGateWelcome({onEnter}:{onEnter:()=>void}){
           </span>
           <Sparkle size={18} weight="fill" className="btn-sparkle" />
         </button>
-        <span className="tap-hint">Tap anywhere to open invitation</span>
       </div>
 
       <button
         type="button"
         className="skip-gate-btn"
-        onClick={e => {
-          e.stopPropagation();
-          onEnter();
-        }}
+        onClick={onEnter}
       >
         Skip intro →
       </button>
@@ -337,25 +343,25 @@ function App(){
         ))}
       </div>
 
-      {/* 2) Before opening page: Royal Gate Welcome Screen with animated opening */}
+      {/* 1) Royal Palace Gate Welcome Screen (Appears once, smooth video-like opening) */}
       {!entered && (
         <RoyalGateWelcome onEnter={startCelebration} />
       )}
 
-      {/* 1) Hero Section: 1st uploaded couple image in full width with perfectly centered arch typography */}
+      {/* 2) Hero Section: Main text at top with namaste couple PNG below */}
       <section className="hero">
+        {/* Royal palace backdrop with warm sunset sky and floral garland top */}
+        <div className="hero-backdrop" />
         <img
-          className="hero-art"
-          src="/assets/hero-couple.jpg"
-          alt="Tanya and Abhishek embracing under a floral arch by the holy Ganges in Rishikesh"
+          src="/assets/garland-top.webp"
+          alt=""
+          className="hero-top-garland"
         />
-        <div className="hero-scrim"/>
 
-        {/* Text placed in the sunset arch space above Tanya and Abhishek - perfectly centered */}
         <motion.div
           className="hero-copy"
-          initial={{opacity:0,y:16}}
-          animate={{opacity:entered?1:0,y:entered?0:16}}
+          initial={{opacity:0,y:18}}
+          animate={{opacity:entered?1:0,y:entered?0:18}}
           transition={{delay:.15,duration:0.9,ease:[.16,1,.3,1]}}
         >
           <div className="arch-header">
@@ -363,14 +369,53 @@ function App(){
             <p className="blessing">TOGETHER WITH OUR FAMILIES</p>
             <div className="arch-filigree"><span>✦</span><i/><span>✦</span></div>
           </div>
-          <h1>Tanya <span>&</span> Abhishek</h1>
+
+          {/* Bride & Groom names with dynamic pop-up spring bounce & glow */}
+          <motion.h1
+            className="hero-names"
+            initial={{ opacity: 0, scale: 0.72, y: 24 }}
+            animate={entered ? { opacity: 1, scale: 1, y: 0 } : { opacity: 0, scale: 0.72, y: 24 }}
+            transition={{
+              type: "spring",
+              stiffness: 260,
+              damping: 18,
+              delay: 0.3
+            }}
+          >
+            Tanya{' '}
+            <motion.span
+              className="names-amp"
+              initial={{ scale: 0, rotate: -25 }}
+              animate={entered ? { scale: 1, rotate: 0 } : { scale: 0 }}
+              transition={{ delay: 0.5, type: "spring", stiffness: 340, damping: 16 }}
+            >
+              &
+            </motion.span>{' '}
+            Abhishek
+          </motion.h1>
+
           <p className="hero-invite-line">invite you to celebrate our wedding</p>
           <div className="date-rule">
             <i/>
-            <b>19 – 20 NOVEMBER 2026</b>
+            <b>19 & 20 NOVEMBER 2026</b>
             <i/>
           </div>
           <p className="hero-destination">Pebbles Resort · Rishikesh</p>
+        </motion.div>
+
+        {/* 2nd uploaded couple PNG (namaste pose with transparent background) below main text */}
+        <motion.div
+          className="hero-couple-showcase"
+          initial={{ opacity: 0, y: 40, scale: 0.94 }}
+          animate={entered ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 40, scale: 0.94 }}
+          transition={{ delay: 0.52, duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <div className="hero-couple-halo" />
+          <img
+            src="/assets/namaste-couple.png"
+            alt="Tanya & Abhishek in traditional attire"
+            className="hero-couple-png"
+          />
         </motion.div>
 
         <motion.div className="leaf-float left" style={{y:reduce?0:leafY}}/>
@@ -391,7 +436,7 @@ function App(){
         </Reveal>
       </section>
 
-      {/* Interactive Scratch-to-reveal Date Section */}
+      {/* Interactive Scratch-to-reveal Date Section (19 & 20) */}
       <ScratchDate/>
 
       {/* Story Section */}
@@ -409,7 +454,7 @@ function App(){
         </Reveal>
       </section>
 
-      {/* 3) "Painted in sunshine before forever begins" section: full width exact image without boxing or duplicate text */}
+      {/* 3) "Before forever begins" section: 1st uploaded image */}
       <section className="ceremony-moment">
         <div className="floating-glass lotus-one">✿</div>
         <div className="floating-glass lotus-two">❀</div>
@@ -417,9 +462,9 @@ function App(){
 
         <div className="ceremony-image">
           <img
-            src="/assets/haldi-couple.jpg"
+            src="/assets/before-forever-begins.jpg"
             loading="lazy"
-            alt="Tanya and Abhishek haldi ceremony moment - Painted in sunshine before forever begins"
+            alt="Before forever begins - Tanya and Abhishek wedding celebration"
             className="ceremony-artwork"
           />
         </div>
@@ -429,7 +474,7 @@ function App(){
         </Reveal>
       </section>
 
-      {/* Wedding Festivities & Schedule */}
+      {/* 4) Wedding Festivities & Schedule with festive heartbeat / vibration motion */}
       <section className="events">
         <Reveal>
           <h2>Wedding Festivities</h2>
@@ -437,10 +482,17 @@ function App(){
         </Reveal>
         <div className="event-list">
           {events.map((e,i)=>(
-            <Reveal className={'event '+(i===3?'featured':'')} key={e.name}>
+            <motion.div
+              className={'event event-vibe-card '+(i===3?'featured':'')}
+              key={e.name}
+              initial={{opacity: 0, y: 26}}
+              whileInView={{opacity: 1, y: 0}}
+              viewport={{once: true, amount: 0.15}}
+              transition={{delay: i * 0.1, duration: 0.6, ease: [0.16, 1, 0.3, 1]}}
+            >
               <div className="event-number">0{i+1}</div>
               <div>
-                <span className="event-icon">{e.icon}</span>
+                <span className="event-icon event-icon-vibe">{e.icon}</span>
                 <h3>{e.name}</h3>
                 <p>{e.note}</p>
                 <dl>
@@ -449,7 +501,7 @@ function App(){
                   <div><dt>Venue</dt><dd>{e.venue}</dd></div>
                 </dl>
               </div>
-            </Reveal>
+            </motion.div>
           ))}
         </div>
       </section>
@@ -492,32 +544,72 @@ function App(){
         </Reveal>
       </section>
 
-      {/* Footer */}
-      <footer>
-        <img src="/assets/hero-couple.jpg" loading="lazy" alt="Tanya and Abhishek celebration"/>
-        <div className="footer-overlay"/>
-        <Reveal className="footer-copy">
-          <Sparkle size={27} weight="thin"/>
-          <p>We cannot wait to celebrate with you</p>
-          <h2>Tanya <i>&</i> Abhishek</h2>
-          <span>19 – 20 November 2026 · Rishikesh</span>
-        </Reveal>
+      {/* 5) Footer / Last Page: 4th uploaded couple image with dramatic wording pop-up animation */}
+      <footer className="footer-last-page">
+        <div className="footer-bg-glow" />
+
+        {/* 4th uploaded couple image (lifting pose with transparent background) */}
+        <motion.div
+          className="footer-couple-wrap"
+          initial={{ opacity: 0, y: 40, scale: 0.93 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <div className="footer-couple-halo" />
+          <img
+            src="/assets/lifting-couple.png"
+            loading="lazy"
+            alt="Tanya & Abhishek celebration"
+            className="footer-couple-art"
+          />
+        </motion.div>
+
+        {/* Dynamic pop-up of wording as shown in original reference */}
+        <motion.div
+          className="footer-copy footer-popup-copy"
+          initial={{ opacity: 0, scale: 0.72, y: 35 }}
+          whileInView={{ opacity: 1, scale: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.35 }}
+          transition={{
+            type: "spring",
+            stiffness: 260,
+            damping: 18,
+            delay: 0.2
+          }}
+        >
+          <Sparkle size={28} weight="fill" className="footer-sparkle" />
+          <motion.p
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.35, duration: 0.6 }}
+            className="footer-kicker"
+          >
+            We cannot wait to celebrate with you
+          </motion.p>
+          <motion.h2
+            initial={{ opacity: 0, scale: 0.78 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.48, type: "spring", stiffness: 300, damping: 16 }}
+            className="footer-names"
+          >
+            Tanya <i>&</i> Abhishek
+          </motion.h2>
+          <motion.span
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ delay: 0.6, duration: 0.6 }}
+            className="footer-dates"
+          >
+            19 & 20 November 2026 · Rishikesh
+          </motion.span>
+        </motion.div>
+
         <a
           href="https://www.instagram.com/invitestory.in/"
           target="_blank"
           rel="noreferrer"
-          style={{
-            position:'relative',
-            zIndex:2,
-            display:'block',
-            marginTop:'16px',
-            fontSize:'9px',
-            textTransform:'uppercase',
-            letterSpacing:'.18em',
-            color:'rgba(255,242,214,.45)',
-            textDecoration:'none',
-            paddingBottom:'16px'
-          }}
+          className="footer-credit"
         >
           Crafted with love by @invitestory.in
         </a>
