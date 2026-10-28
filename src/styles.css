@@ -1207,11 +1207,16 @@ main {
 
 .event dl {
   display: grid;
-  gap: 8px;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 10px 14px;
   border-top: 1px dashed rgba(184, 123, 34, 0.25);
-  padding-top: 12px;
+  padding-top: 14px;
   margin: 0;
   font-size: 12.5px;
+}
+
+.event dl .dl-full {
+  grid-column: 1 / -1;
 }
 
 .event dt {
@@ -1854,7 +1859,7 @@ main {
     padding-inline: 8vw;
   }
   .event dl {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   }
   .actions {
     grid-template-columns: 1fr 1fr;

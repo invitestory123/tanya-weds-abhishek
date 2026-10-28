@@ -12,35 +12,69 @@ const WEDDING_START = new Date('2026-11-19T09:00:00+05:30');
 const events = [
   {
     name: 'Haldi',
-    date: '19 November 2026 (Thursday)',
-    time: '9:00 AM',
+    date: 'Thursday, 19 November 2026',
+    times: [
+      { label: 'Breakfast', time: '8:00 AM' },
+      { label: 'Haldi Ceremony', time: '9:00 AM' }
+    ],
     venue: 'Pebbles Resort, Rishikesh',
-    note: 'Sunshine, turmeric, and the warmest laughter with our closest family.',
+    note: 'Join us for a vibrant celebration of love, laughter, and blessings as we begin the wedding festivities with the joyful hues of Haldi.',
     icon: '💛'
   },
   {
     name: 'Mehndi',
-    date: '19 November 2026 (Thursday)',
-    time: '1:30 PM',
+    date: 'Thursday, 19 November 2026',
+    times: [
+      { label: 'Mehndi Ceremony', time: '12:00 PM' },
+      { label: 'Lunch', time: '1:00 PM' }
+    ],
     venue: 'Pebbles Resort, Rishikesh',
-    note: 'Delicate henna patterns, folk music, and joyous afternoon celebrations.',
+    note: 'An afternoon filled with delicate henna patterns, folk music, laughter, and beautiful memories as we celebrate the joy of togetherness.',
     icon: '🌿'
   },
   {
-    name: 'Engagement & Sangeet',
-    date: '19 November 2026 (Thursday)',
-    time: '5:30 PM',
+    name: 'Ring Ceremony & Sangeet',
+    date: 'Thursday, 19 November 2026',
+    times: [
+      { label: 'Ring Ceremony & Sangeet', time: '5:30 PM' },
+      { label: 'Semi-Gala Dinner', time: '8:30 PM' }
+    ],
     venue: 'Pebbles Resort, Rishikesh',
-    note: 'Exchange of rings, music, and an unforgettable night of dance under the starlit sky.',
+    note: 'An enchanting evening of love, music, dance, and celebration as we exchange rings and begin a beautiful new chapter together.',
     icon: '✨'
   },
   {
-    name: 'Wedding Ceremony',
-    date: '20 November 2026 (Friday)',
-    time: 'Morning Auspicious Muhurat',
+    name: 'Lagan & Sagai',
+    date: 'Friday, 20 November 2026',
+    times: [
+      { label: 'Ceremony', time: '7:00 AM' },
+      { label: 'Breakfast', time: '8:30 AM' }
+    ],
     venue: 'Pebbles Resort, Rishikesh',
-    note: 'Sacred pheras by the holy Ganges as our two souls unite forever.',
+    note: 'With hearts full of joy and blessings, join us for the auspicious wedding rituals and sacred traditions that unite two souls in the bond of marriage.',
+    icon: '🪔'
+  },
+  {
+    name: 'Shubh Varmala',
+    date: 'Friday, 20 November 2026',
+    times: [
+      { label: 'Varmala Ceremony', time: '12:30 PM' },
+      { label: 'Gala Lunch', time: '1:30 PM' }
+    ],
+    venue: 'Pebbles Resort, Rishikesh',
+    note: 'Witness a beautiful moment of love and togetherness as the bride and groom exchange garlands, promising a lifetime of happiness and togetherness.',
     icon: '💍'
+  },
+  {
+    name: 'Vidai',
+    date: 'Friday, 20 November 2026',
+    times: [
+      { label: 'Hi-Tea', time: '5:00 PM' },
+      { label: 'Vidai', time: '6:00 PM' }
+    ],
+    venue: 'Pebbles Resort, Rishikesh',
+    note: 'As we bid a heartfelt farewell to the bride, we cherish the beautiful memories, seek blessings for her new journey, and celebrate the beginning of a wonderful new chapter.',
+    icon: '🕊️'
   },
 ];
 
@@ -409,17 +443,16 @@ function LastPageCelebration(){
           <div className="lace-flower-cluster top-right" aria-hidden="true" />
           <div className="lace-flower-cluster bottom-left" aria-hidden="true" />
 
-          {/* Dummy Space for Couple Photo (pre-loaded with cropped sunset couple reference, easy to swap anytime) */}
+          {/* Photo inside lace frame: uploaded couple sunset photo */}
           <div className="lace-photo-container">
             <img
-              src="/assets/dummy-couple-photo.jpg"
+              src="/assets/couple-sunset.jpg"
               alt="Tanya & Abhishek romantic sunset moment"
               className="lace-photo-img"
               loading="lazy"
             />
             {/* Subtle warm sunset light overlay inside the frame */}
             <div className="photo-sun-flare" />
-            <div className="photo-dummy-badge">Photo Placeholder</div>
           </div>
         </div>
       </motion.div>
@@ -767,17 +800,17 @@ function App(){
       <section className="events">
         <Reveal>
           <h2>Wedding Festivities</h2>
-          <p className="section-intro">Four beautiful ceremonies. One unforgettable celebration.</p>
+          <p className="section-intro">Six beautiful ceremonies. One unforgettable celebration.</p>
         </Reveal>
         <div className="event-list">
           {events.map((e,i)=>(
             <motion.div
-              className={'event event-vibe-card '+(i===3?'featured':'')}
+              className={'event event-vibe-card '+(i===4?'featured':'')}
               key={e.name}
               initial={{opacity: 0, y: 26}}
               whileInView={{opacity: 1, y: 0}}
               viewport={{once: true, amount: 0.15}}
-              transition={{delay: i * 0.1, duration: 0.6, ease: [0.16, 1, 0.3, 1]}}
+              transition={{delay: i * 0.08, duration: 0.6, ease: [0.16, 1, 0.3, 1]}}
             >
               <div className="event-number">0{i+1}</div>
               <div>
@@ -785,8 +818,10 @@ function App(){
                 <h3>{e.name}</h3>
                 <p>{e.note}</p>
                 <dl>
-                  <div><dt>Date</dt><dd>{e.date}</dd></div>
-                  <div><dt>Time</dt><dd>{e.time}</dd></div>
+                  <div className="dl-full"><dt>Date</dt><dd>{e.date}</dd></div>
+                  {e.times.map((t, idx)=>(
+                    <div key={idx}><dt>{t.label}</dt><dd>{t.time}</dd></div>
+                  ))}
                   <div><dt>Venue</dt><dd>{e.venue}</dd></div>
                 </dl>
               </div>
