@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {createRoot} from 'react-dom/client';
 import {motion, useReducedMotion, useScroll, useTransform} from 'motion/react';
-import {CalendarBlank, MapPin, SpeakerHigh, SpeakerSlash, FlowerLotus, Sparkle, ArrowDown} from '@phosphor-icons/react';
+import {CalendarBlank, MapPin, SpeakerHigh, SpeakerSlash, ArrowDown, Sparkle, Heart} from '@phosphor-icons/react';
 import gsap from 'gsap';
 import {ScrollTrigger} from 'gsap/ScrollTrigger';
 import './styles.css';
@@ -46,7 +46,17 @@ const events = [
 
 function Reveal({children, className=''}:{children:React.ReactNode,className?:string}){
   const reduce=useReducedMotion();
-  return <motion.div className={className} initial={reduce?false:{opacity:0,y:28}} whileInView={{opacity:1,y:0}} viewport={{once:true,amount:.15}} transition={{duration:.75,ease:[.16,1,.3,1]}}>{children}</motion.div>;
+  return (
+    <motion.div
+      className={className}
+      initial={reduce?false:{opacity:0,y:28}}
+      whileInView={{opacity:1,y:0}}
+      viewport={{once:true,amount:.15}}
+      transition={{duration:.75,ease:[.16,1,.3,1]}}
+    >
+      {children}
+    </motion.div>
+  );
 }
 
 function Countdown(){
@@ -162,91 +172,318 @@ function ScratchDate(){
   );
 }
 
-// Royal Palace Gate Welcome with Cinematic 3D Door Opening & Video Effects
-function RoyalGateWelcome({onEnter}:{onEnter:()=>void}){
-  const [opening, setOpening] = useState(false);
+// 1) Cinematic Opener: Clicking plays "vide.mp4", ending transitions into 1st uploaded entrance image
+function RoyalVideoWelcome({onEnter}:{onEnter:()=>void}){
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isFinishing, setIsFinishing] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
-  const handleOpen = () => {
-    if (opening) return;
-    setOpening(true);
-    // Smooth transition into the invitation
+  const handleOpenClick = () => {
+    if (isPlaying || isFinishing) return;
+    setIsPlaying(true);
+    const vid = videoRef.current;
+    if (vid) {
+      vid.currentTime = 0;
+      vid.play().catch(() => {
+        // Fallback if browser blocks autoplay
+        finishWelcome();
+      });
+    }
+  };
+
+  const finishWelcome = () => {
+    if (isFinishing) return;
+    setIsFinishing(true);
     setTimeout(() => {
       onEnter();
-    }, 1150);
+    }, 450);
   };
 
   return (
     <div
-      className={`royal-welcome ${opening ? 'is-opening' : ''}`}
+      className={`royal-welcome ${isPlaying ? 'video-active' : ''} ${isFinishing ? 'is-finishing' : ''}`}
       role="dialog"
       aria-modal="true"
       aria-label="Tanya & Abhishek royal wedding invitation entry"
     >
-      {/* Ambient background glow & atmospheric light */}
+      {/* Background Video Element: Plays vide.mp4 on first click */}
+      <video
+        ref={videoRef}
+        src="/assets/vide.mp4"
+        playsInline
+        preload="auto"
+        className="gate-video-player"
+        onEnded={finishWelcome}
+      />
+
+      {/* Poster / Backdrop before playing: Smooth pre-roll atmosphere */}
+      <div className="gate-video-poster" />
+
+      {/* Ambient background glow & soft floating particles */}
       <div className="gate-ambient-glow" aria-hidden="true" />
 
-      {/* Floating flower petals */}
       <div className="gate-petals-burst" aria-hidden="true">
-        {Array.from({length: 22}, (_, i) => (
+        {Array.from({length: 18}, (_, i) => (
           <span key={i} className={`gate-petal petal-${i}`} />
         ))}
       </div>
 
-      {/* 
-        Seamless Double Doors:
-        When closed: rendered as ONE seamless image without any subpixel gap or center line.
-        When opening: parts into left & right 3D swinging wings with divine golden light rays.
-      */}
-      <div className="gate-doors-stage" aria-hidden="true">
-        {/* Whole door visible initially so there is NO blank seam line */}
-        <div className="gate-door-whole">
-          <img
-            src="/assets/gate-open.jpg"
-            alt="Royal Palace Gate with T&A Seal"
-            className="gate-img-full"
-          />
-        </div>
-
-        {/* 3D Parting Wings active during opening */}
-        <div className="gate-door-wings-layer">
-          <div className="gate-door-wing left-wing">
-            <img src="/assets/gate-open.jpg" alt="" className="gate-wing-img" />
+      {/* Opening Interface: CTA button with lighter, non-bold text + bride & groom names below */}
+      {!isPlaying && (
+        <div className="gate-welcome-ui">
+          {/* Top Royal Emblem */}
+          <div className="gate-crest">
+            <span className="gate-lotus-icon">🪷</span>
+            <span className="gate-royal-kicker">ROYAL WEDDING INVITATION</span>
           </div>
-          <div className="gate-door-wing right-wing">
-            <img src="/assets/gate-open.jpg" alt="" className="gate-wing-img" />
+
+          {/* Action Button: Lighter font colour & not bold */}
+          <button
+            type="button"
+            aria-label="Open Tanya and Abhishek's wedding invitation"
+            className="open-invitation-btn"
+            onClick={handleOpenClick}
+          >
+            <span className="btn-glow-pulse" />
+            <span className="btn-lotus-glyph">🪷</span>
+            <span className="btn-text-content">
+              <span className="btn-invite-title">Open our invitation</span>
+              <span className="btn-invite-sub">TAP TO ENTER</span>
+            </span>
+            <Sparkle size={17} weight="fill" className="btn-sparkle-icon" />
+          </button>
+
+          {/* Bride & Groom names in down (bottom of opening screen) */}
+          <div className="gate-bottom-names">
+            <div className="gate-ornament-line">
+              <i /><span>✦</span><i />
+            </div>
+            <h2 className="gate-names-text">
+              Tanya <i>&</i> Abhishek
+            </h2>
+            <p className="gate-names-details">
+              19 & 20 NOVEMBER 2026 · RISHIKESH
+            </p>
           </div>
         </div>
+      )}
 
-        {/* Cinematic sunbeam flare leaking through the parting seam */}
-        <div className="gate-light-leak" />
-      </div>
-
-      {/* Interactive CTA Button - Only ONE clean button, without redundant tap hint */}
-      <div className="gate-action-area">
-        <button
-          type="button"
-          aria-label="Open Tanya and Abhishek's wedding invitation"
-          className="open-gate-btn"
-          onClick={handleOpen}
-        >
-          <span className="btn-glow-ring" />
-          <span className="btn-lotus-seal">🪷</span>
-          <span className="btn-text-wrap">
-            <strong className="btn-title">Open our invitation</strong>
-            <small className="btn-subtitle">TAP TO ENTER</small>
-          </span>
-          <Sparkle size={18} weight="fill" className="btn-sparkle" />
-        </button>
-      </div>
-
+      {/* Skip button for quick entry */}
       <button
         type="button"
-        className="skip-gate-btn"
-        onClick={onEnter}
+        className="skip-video-btn"
+        onClick={finishWelcome}
       >
         Skip intro →
       </button>
     </div>
+  );
+}
+
+// 4) Two Paths One Forever replaced with exact replica of 3rd uploaded image (family blessings card)
+function FamilyBlessingCard(){
+  return (
+    <section className="card-blessing-section">
+      <Reveal className="blessing-card-container">
+        {/* Soft background glow and ornamental border */}
+        <div className="blessing-card-inner">
+          {/* Top Lotus Motif */}
+          <div className="blessing-top-lotus">
+            <svg width="42" height="34" viewBox="0 0 48 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M24 2C24 2 28 12 28 22C28 27.5 25.5 32 24 34C22.5 32 20 27.5 20 22C20 12 24 2 24 2Z" stroke="#966a35" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M24 14C27.5 16 35.5 21 35.5 27.5C35.5 31.5 32.5 34 29 34C26.5 34 24.8 32.5 24 31" stroke="#966a35" strokeWidth="1.5" strokeLinecap="round"/>
+              <path d="M24 14C20.5 16 12.5 21 12.5 27.5C12.5 31.5 15.5 34 19 34C21.5 34 23.2 32.5 24 31" stroke="#966a35" strokeWidth="1.5" strokeLinecap="round"/>
+              <path d="M24 22C29 23.5 41 27.5 41 33C41 35.5 38 36.5 35 36.5C30.5 36.5 26.5 33.5 24 31" stroke="#966a35" strokeWidth="1.4" strokeLinecap="round"/>
+              <path d="M24 22C19 23.5 7 27.5 7 33C7 35.5 10 36.5 13 36.5C17.5 36.5 21.5 33.5 24 31" stroke="#966a35" strokeWidth="1.4" strokeLinecap="round"/>
+            </svg>
+          </div>
+
+          <p className="blessing-header-kicker">WITH THE BLESSINGS OF OUR FAMILIES</p>
+
+          <p className="blessing-invite-text">
+            WE CORDIALLY INVITE YOU TO<br />
+            CELEBRATE THE WEDDING OF
+          </p>
+
+          {/* Bride Name in elegant cursive script calligraphy */}
+          <div className="blessing-person">
+            <h3 className="blessing-script-name">Tanya</h3>
+            <p className="blessing-parents">(D/O Mrs. Anita &amp; Mr. Pramod Kumar Saini)</p>
+          </div>
+
+          {/* Middle Lotus Divider with 'WITH' */}
+          <div className="blessing-divider-middle">
+            <div className="divider-flourish">
+              <span className="flourish-line" />
+              <span className="flourish-lotus">🪷</span>
+              <span className="flourish-line" />
+            </div>
+            <p className="blessing-with">WITH</p>
+          </div>
+
+          {/* Groom Name in elegant cursive script calligraphy */}
+          <div className="blessing-person">
+            <h3 className="blessing-script-name">Abhishek</h3>
+            <p className="blessing-parents">(S/O Mrs. Sunita Devi &amp; Mr. Raj Kumar Saini)</p>
+          </div>
+
+          {/* Bottom Divider with Date & Venue */}
+          <div className="blessing-footer-divider">
+            <div className="divider-diamond-line">
+              <span className="diamond-rule" />
+              <span className="diamond-glyph">✧</span>
+              <span className="diamond-rule" />
+            </div>
+
+            <p className="blessing-dates">19–20 NOVEMBER 2026</p>
+
+            <div className="divider-diamond-line">
+              <span className="diamond-rule" />
+              <span className="diamond-glyph">✧</span>
+              <span className="diamond-rule" />
+            </div>
+
+            <p className="blessing-city">RISHIKESH</p>
+          </div>
+        </div>
+      </Reveal>
+    </section>
+  );
+}
+
+// 7) Last Page Recreated exactly from 4th uploaded image (rich chocolate brown, lace frame, couple dummy photo, script calligraphy)
+function LastPageCelebration(){
+  return (
+    <footer className="footer-last-page-lux">
+      {/* Warm ambient radial glows */}
+      <div className="lux-bg-vignette" />
+      <div className="lux-lantern-glow-left" />
+      <div className="lux-lantern-glow-right" />
+
+      {/* Hanging Antique Lanterns at Top-Left and Top-Right */}
+      <div className="lux-hanging-lanterns" aria-hidden="true">
+        <div className="lux-lantern lantern-left-top">
+          <i className="lux-chain" />
+          <div className="lux-lamp-head">
+            <span className="lux-flame-flicker" />
+          </div>
+        </div>
+        <div className="lux-lantern lantern-left-sub">
+          <i className="lux-chain short" />
+          <div className="lux-lamp-head sm">
+            <span className="lux-flame-flicker" />
+          </div>
+        </div>
+        <div className="lux-lantern lantern-right-top">
+          <i className="lux-chain" />
+          <div className="lux-lamp-head">
+            <span className="lux-flame-flicker" />
+          </div>
+        </div>
+      </div>
+
+      {/* Cascading Bougainvillea Floral Vines framing the corners */}
+      <div className="lux-corner-florals top-left" aria-hidden="true" />
+      <div className="lux-corner-florals top-right" aria-hidden="true" />
+
+      {/* Floating flower petals */}
+      <div className="lux-drifting-petals" aria-hidden="true">
+        {Array.from({length: 14}, (_, i) => (
+          <span key={i} className={`lux-petal petal-float-${i}`} />
+        ))}
+      </div>
+
+      {/* Centerpiece: Ornate Scalloped Vintage Lace Picture Frame with Dummy Photo Space */}
+      <motion.div
+        className="lux-photo-frame-wrap"
+        initial={{ opacity: 0, scale: 0.9, y: 30 }}
+        whileInView={{ opacity: 1, scale: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
+      >
+        {/* Scalloped Lace Frame Container */}
+        <div className="lace-frame-outer">
+          <div className="lace-scallop-border" />
+          
+          {/* Corner Floral Bouquet Decorations */}
+          <div className="lace-flower-cluster top-right" aria-hidden="true" />
+          <div className="lace-flower-cluster bottom-left" aria-hidden="true" />
+
+          {/* Dummy Space for Couple Photo (pre-loaded with cropped sunset couple reference, easy to swap anytime) */}
+          <div className="lace-photo-container">
+            <img
+              src="/assets/dummy-couple-photo.jpg"
+              alt="Tanya & Abhishek romantic sunset moment"
+              className="lace-photo-img"
+              loading="lazy"
+            />
+            {/* Subtle warm sunset light overlay inside the frame */}
+            <div className="photo-sun-flare" />
+            <div className="photo-dummy-badge">Photo Placeholder</div>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Typography directly below the frame matching 4th image */}
+      <motion.div
+        className="lux-wording-wrap"
+        initial={{ opacity: 0, y: 24, scale: 0.94 }}
+        whileInView={{ opacity: 1, y: 0, scale: 1 }}
+        viewport={{ once: true, amount: 0.25 }}
+        transition={{ type: "spring", stiffness: 240, damping: 18, delay: 0.2 }}
+      >
+        {/* Heart Divider: ─── 💛 ─── */}
+        <div className="lux-heart-divider">
+          <span className="heart-rule" />
+          <span className="heart-icon">💛</span>
+          <span className="heart-rule" />
+        </div>
+
+        {/* Cursive script text: We cannot wait to celebrate with you */}
+        <h2 className="lux-script-quote">
+          We cannot wait to celebrate with you
+        </h2>
+
+        {/* Golden Lotus emblem */}
+        <div className="lux-lotus-seal">
+          <svg width="34" height="26" viewBox="0 0 48 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M24 2C24 2 28 12 28 22C28 27.5 25.5 32 24 34C22.5 32 20 27.5 20 22C20 12 24 2 24 2Z" stroke="#deb572" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M24 14C27.5 16 35.5 21 35.5 27.5C35.5 31.5 32.5 34 29 34C26.5 34 24.8 32.5 24 31" stroke="#deb572" strokeWidth="1.5" strokeLinecap="round"/>
+            <path d="M24 14C20.5 16 12.5 21 12.5 27.5C12.5 31.5 15.5 34 19 34C21.5 34 23.2 32.5 24 31" stroke="#deb572" strokeWidth="1.5" strokeLinecap="round"/>
+            <path d="M24 22C29 23.5 41 27.5 41 33C41 35.5 38 36.5 35 36.5C30.5 36.5 26.5 33.5 24 31" stroke="#deb572" strokeWidth="1.4" strokeLinecap="round"/>
+            <path d="M24 22C19 23.5 7 27.5 7 33C7 35.5 10 36.5 13 36.5C17.5 36.5 21.5 33.5 24 31" stroke="#deb572" strokeWidth="1.4" strokeLinecap="round"/>
+          </svg>
+        </div>
+
+        {/* Date & Location: 19 & 20 NOVEMBER 2026 · RISHIKESH */}
+        <p className="lux-event-date">
+          19 &amp; 20 NOVEMBER 2026 &nbsp;·&nbsp; RISHIKESH
+        </p>
+
+        {/* Diamond Rule: ─── ✦ ─── */}
+        <div className="lux-diamond-rule">
+          <span className="diamond-dash" />
+          <span className="diamond-star">✦</span>
+          <span className="diamond-dash" />
+        </div>
+      </motion.div>
+
+      {/* Bottom glowing candles and floral bed */}
+      <div className="lux-bottom-bed" aria-hidden="true">
+        <span className="lux-diya-glow diya-left" />
+        <span className="lux-diya-glow diya-center" />
+        <span className="lux-diya-glow diya-right" />
+      </div>
+
+      <a
+        href="https://www.instagram.com/invitestory.in/"
+        target="_blank"
+        rel="noreferrer"
+        className="lux-footer-credit"
+      >
+        Crafted with love by @invitestory.in
+      </a>
+    </footer>
   );
 }
 
@@ -261,10 +498,11 @@ function App(){
 
   const startCelebration = () => {
     setEntered(true);
-    // Play celebratory wedding background music safely
+    // Play celebratory wedding background music safely with continuous loop
     const audio = audioRef.current;
     if (audio) {
       audio.volume = 0.55;
+      audio.loop = true;
       const playPromise = audio.play();
       if (playPromise !== undefined) {
         playPromise
@@ -285,18 +523,39 @@ function App(){
     }
   };
 
+  // GSAP animations for interactive scroll movements
   useEffect(()=>{
     if(reduce||!entered||!page.current)return;
     gsap.registerPlugin(ScrollTrigger);
     const ctx=gsap.context(()=>{
       gsap.fromTo('.hero-copy>*',{opacity:0,y:20},{opacity:1,y:0,duration:1,stagger:.1,ease:'power3.out'});
       gsap.utils.toArray<HTMLElement>('.event').forEach((el,i)=>gsap.fromTo(el,{opacity:0,x:i%2?-35:35},{opacity:1,x:0,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 86%',end:'top 58%',scrub:.8}}));
-      gsap.fromTo('.story-inner',{clipPath:'inset(0 50% 0 50%)',opacity:.4},{clipPath:'inset(0 0% 0 0%)',opacity:1,ease:'power2.out',scrollTrigger:{trigger:'.story',start:'top 80%',end:'center 55%',scrub:1}});
       gsap.to('.map i',{y:-10,repeat:-1,yoyo:true,duration:1.2,ease:'sine.inOut'});
+
+      // Animated Dynamic Swaying & Floating Lanterns (Requirement 5)
       gsap.utils.toArray<HTMLElement>('.atmos-lantern').forEach((el,i)=>{
         const depth=Number(el.dataset.depth||.4);
-        gsap.to(el,{yPercent:-90*depth,x:Math.sin(i)*18*depth,rotation:i%2?4:-4,ease:'none',scrollTrigger:{trigger:page.current,start:'top top',end:'bottom bottom',scrub:1.2+depth}});
-        gsap.to(el.querySelector('.lantern-flame'),{scaleY:1.18,opacity:.72,repeat:-1,yoyo:true,duration:.7+i*.08,ease:'sine.inOut'});
+        gsap.to(el,{
+          yPercent:-95*depth,
+          x:Math.sin(i*1.8)*24*depth,
+          rotation:i%2?7:-7,
+          ease:'none',
+          scrollTrigger:{
+            trigger:page.current,
+            start:'top top',
+            end:'bottom bottom',
+            scrub:1.1+depth
+          }
+        });
+        gsap.to(el.querySelector('.lantern-flame'),{
+          scaleY:1.22,
+          scaleX:1.12,
+          opacity:.85,
+          repeat:-1,
+          yoyo:true,
+          duration:.65+i*.09,
+          ease:'sine.inOut'
+        });
       });
     },page);
     return()=>ctx.revert();
@@ -304,7 +563,7 @@ function App(){
 
   return (
     <main ref={page}>
-      {/* Background Wedding Audio */}
+      {/* 8) Background Wedding Audio with Continuous Looping */}
       <audio ref={audioRef} src="/assets/wedding-music.mp3" loop preload="auto" />
 
       {/* Floating Audio Toggle Button */}
@@ -326,42 +585,73 @@ function App(){
 
       <motion.div className="scroll-progress" style={{scaleX:scrollYProgress}}/>
 
-      {/* Lantern Atmosphere */}
+      {/* 5) Dynamic Moving Animating Lantern Atmosphere with Pendulum Sway */}
       <div className="lantern-atmosphere" aria-hidden="true">
         {[
-          {x:6,y:12,d:.22,s:.62,b:2.2},
-          {x:89,y:20,d:.35,s:.78,b:1.4},
-          {x:12,y:42,d:.7,s:1.05,b:.4},
-          {x:93,y:55,d:.28,s:.58,b:2.6},
-          {x:4,y:72,d:1,s:1.35,b:.2},
-          {x:87,y:84,d:.62,s:.92,b:.8},
-          {x:48,y:64,d:.18,s:.42,b:3.2}
+          {x:7, y:10, d:.25, s:.68, b:2, sway:4.5},
+          {x:91, y:18, d:.38, s:.82, b:1.2, sway:5.8},
+          {x:10, y:38, d:.72, s:1.08, b:.3, sway:4.0},
+          {x:92, y:52, d:.32, s:.62, b:2.4, sway:6.2},
+          {x:5, y:70, d:1, s:1.35, b:.1, sway:3.8},
+          {x:88, y:82, d:.65, s:.95, b:.7, sway:5.0},
+          {x:48, y:60, d:.20, s:.45, b:3, sway:4.8}
         ].map((l,i)=>(
-          <span key={i} className="atmos-lantern" data-depth={l.d} style={{left:`${l.x}%`,top:`${l.y}%`,'--scale':l.s,'--blur':`${l.b}px`,'--delay':`${-i*.6}s`} as React.CSSProperties}>
-            <i className="lantern-chain"/><i className="lantern-cap"/><i className="lantern-body"><b className="lantern-flame"/></i><i className="lantern-tail"/>
+          <span
+            key={i}
+            className={`atmos-lantern lantern-swing-${i % 3}`}
+            data-depth={l.d}
+            style={{
+              left:`${l.x}%`,
+              top:`${l.y}%`,
+              '--scale':l.s,
+              '--blur':`${l.b}px`,
+              '--sway-dur':`${l.sway}s`,
+              '--delay':`${-i*.7}s`
+            } as React.CSSProperties}
+          >
+            <i className="lantern-chain"/>
+            <i className="lantern-cap"/>
+            <i className="lantern-body">
+              <b className="lantern-flame"/>
+            </i>
+            <i className="lantern-tail"/>
           </span>
         ))}
       </div>
 
-      {/* 1) Royal Palace Gate Welcome Screen (Appears once, smooth video-like opening) */}
+      {/* 1) Royal Palace Gate Video Opener Screen */}
       {!entered && (
-        <RoyalGateWelcome onEnter={startCelebration} />
+        <RoyalVideoWelcome onEnter={startCelebration} />
       )}
 
-      {/* 2) Hero Section: Main text at top with namaste couple PNG below */}
+      {/* 
+        2) Entrance Hero Section: 
+        - Background is 1st uploaded image (entrance-mandap.jpg)
+        - Bride & Groom names on top with pop-up bounce animation
+        - Couple lifting PNG (2nd uploaded image) below with scroll pop-up animation
+      */}
       <section className="hero">
-        {/* Royal palace backdrop with warm sunset sky and floral garland top */}
-        <div className="hero-backdrop" />
+        {/* Entrance background image: 1st uploaded image */}
+        <div className="hero-mandap-backdrop" />
+        <div className="hero-mandap-overlay" />
+
         <img
           src="/assets/garland-top.webp"
           alt=""
           className="hero-top-garland"
         />
 
+        {/* Falling floral petals floating across hero */}
+        <div className="hero-petals-flow" aria-hidden="true">
+          {Array.from({length: 16}, (_, i) => (
+            <span key={i} className={`hero-drifting-petal petal-flow-${i}`} />
+          ))}
+        </div>
+
         <motion.div
           className="hero-copy"
-          initial={{opacity:0,y:18}}
-          animate={{opacity:entered?1:0,y:entered?0:18}}
+          initial={{opacity:0,y:22}}
+          animate={{opacity:entered?1:0,y:entered?0:22}}
           transition={{delay:.15,duration:0.9,ease:[.16,1,.3,1]}}
         >
           <div className="arch-header">
@@ -370,16 +660,18 @@ function App(){
             <div className="arch-filigree"><span>✦</span><i/><span>✦</span></div>
           </div>
 
-          {/* Bride & Groom names with dynamic pop-up spring bounce & glow */}
+          {/* 
+            3) Bride & Groom names with original dynamic pop-up spring bounce & golden glow
+          */}
           <motion.h1
             className="hero-names"
-            initial={{ opacity: 0, scale: 0.72, y: 24 }}
-            animate={entered ? { opacity: 1, scale: 1, y: 0 } : { opacity: 0, scale: 0.72, y: 24 }}
+            initial={{ opacity: 0, scale: 0.62, y: 35 }}
+            animate={entered ? { opacity: 1, scale: 1, y: 0 } : { opacity: 0, scale: 0.62, y: 35 }}
             transition={{
               type: "spring",
-              stiffness: 260,
-              damping: 18,
-              delay: 0.3
+              stiffness: 280,
+              damping: 16,
+              delay: 0.28
             }}
           >
             Tanya{' '}
@@ -387,7 +679,7 @@ function App(){
               className="names-amp"
               initial={{ scale: 0, rotate: -25 }}
               animate={entered ? { scale: 1, rotate: 0 } : { scale: 0 }}
-              transition={{ delay: 0.5, type: "spring", stiffness: 340, damping: 16 }}
+              transition={{ delay: 0.48, type: "spring", stiffness: 350, damping: 15 }}
             >
               &
             </motion.span>{' '}
@@ -397,23 +689,31 @@ function App(){
           <p className="hero-invite-line">invite you to celebrate our wedding</p>
           <div className="date-rule">
             <i/>
-            <b>19 & 20 NOVEMBER 2026</b>
+            <b>19 &amp; 20 NOVEMBER 2026</b>
             <i/>
           </div>
           <p className="hero-destination">Pebbles Resort · Rishikesh</p>
         </motion.div>
 
-        {/* 2nd uploaded couple PNG (namaste pose with transparent background) below main text */}
+        {/* 
+          2) Couple PNG image (lifting couple) popping up when scrolling
+        */}
         <motion.div
           className="hero-couple-showcase"
-          initial={{ opacity: 0, y: 40, scale: 0.94 }}
-          animate={entered ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 40, scale: 0.94 }}
-          transition={{ delay: 0.52, duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
+          initial={{ opacity: 0, y: 55, scale: 0.88 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{
+            type: "spring",
+            stiffness: 220,
+            damping: 18,
+            delay: 0.2
+          }}
         >
           <div className="hero-couple-halo" />
           <img
-            src="/assets/namaste-couple.png"
-            alt="Tanya & Abhishek in traditional attire"
+            src="/assets/lifting-couple.png"
+            alt="Tanya & Abhishek in celebratory pose"
             className="hero-couple-png"
           />
         </motion.div>
@@ -439,22 +739,15 @@ function App(){
       {/* Interactive Scratch-to-reveal Date Section (19 & 20) */}
       <ScratchDate/>
 
-      {/* Story Section */}
-      <section className="story ornamental">
-        <Reveal className="story-inner">
-          <FlowerLotus size={34} weight="thin"/>
-          <p className="script">A celebration of love</p>
-          <h2>Two paths, one forever</h2>
-          <p>
-            From chance hellos to a thousand shared dreams, we found home in each other.
-            With joyful hearts and the blessings of our beloved families, we invite you to witness
-            the beginning of our forever in the divine embrace of Rishikesh.
-          </p>
-          <div className="signature">Tanya <i>&</i> Abhishek</div>
-        </Reveal>
-      </section>
+      {/* 
+        4) Two Paths One Forever replaced with family blessing card page matching 3rd uploaded image
+      */}
+      <FamilyBlessingCard />
 
-      {/* 3) "Before forever begins" section: 1st uploaded image */}
+      {/* 
+        6) "Before forever begins" section: 1st uploaded image
+        (Removed "Scroll to explore wedding festivities" as requested in Requirement 6)
+      */}
       <section className="ceremony-moment">
         <div className="floating-glass lotus-one">✿</div>
         <div className="floating-glass lotus-two">❀</div>
@@ -468,13 +761,9 @@ function App(){
             className="ceremony-artwork"
           />
         </div>
-
-        <Reveal className="ceremony-subcue">
-          <span>Scroll to explore wedding festivities ↓</span>
-        </Reveal>
       </section>
 
-      {/* 4) Wedding Festivities & Schedule with festive heartbeat / vibration motion */}
+      {/* Wedding Festivities & Schedule with festive vibration motion */}
       <section className="events">
         <Reveal>
           <h2>Wedding Festivities</h2>
@@ -544,76 +833,11 @@ function App(){
         </Reveal>
       </section>
 
-      {/* 5) Footer / Last Page: 4th uploaded couple image with dramatic wording pop-up animation */}
-      <footer className="footer-last-page">
-        <div className="footer-bg-glow" />
-
-        {/* 4th uploaded couple image (lifting pose with transparent background) */}
-        <motion.div
-          className="footer-couple-wrap"
-          initial={{ opacity: 0, y: 40, scale: 0.93 }}
-          whileInView={{ opacity: 1, y: 0, scale: 1 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <div className="footer-couple-halo" />
-          <img
-            src="/assets/lifting-couple.png"
-            loading="lazy"
-            alt="Tanya & Abhishek celebration"
-            className="footer-couple-art"
-          />
-        </motion.div>
-
-        {/* Dynamic pop-up of wording as shown in original reference */}
-        <motion.div
-          className="footer-copy footer-popup-copy"
-          initial={{ opacity: 0, scale: 0.72, y: 35 }}
-          whileInView={{ opacity: 1, scale: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.35 }}
-          transition={{
-            type: "spring",
-            stiffness: 260,
-            damping: 18,
-            delay: 0.2
-          }}
-        >
-          <Sparkle size={28} weight="fill" className="footer-sparkle" />
-          <motion.p
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.35, duration: 0.6 }}
-            className="footer-kicker"
-          >
-            We cannot wait to celebrate with you
-          </motion.p>
-          <motion.h2
-            initial={{ opacity: 0, scale: 0.78 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.48, type: "spring", stiffness: 300, damping: 16 }}
-            className="footer-names"
-          >
-            Tanya <i>&</i> Abhishek
-          </motion.h2>
-          <motion.span
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ delay: 0.6, duration: 0.6 }}
-            className="footer-dates"
-          >
-            19 & 20 November 2026 · Rishikesh
-          </motion.span>
-        </motion.div>
-
-        <a
-          href="https://www.instagram.com/invitestory.in/"
-          target="_blank"
-          rel="noreferrer"
-          className="footer-credit"
-        >
-          Crafted with love by @invitestory.in
-        </a>
-      </footer>
+      {/* 
+        7) Last Page Recreated exactly from 4th uploaded image 
+        (Chocolate brown, hanging lanterns, lace frame, couple dummy photo, script calligraphy)
+      */}
+      <LastPageCelebration />
     </main>
   );
 }
