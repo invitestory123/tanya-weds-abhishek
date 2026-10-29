@@ -1059,9 +1059,8 @@ main {
 }
 
 /* =========================================================
-   3) "BEFORE FOREVER BEGINS" (1st UPLOADED IMAGE)
-   - Edge-to-edge presentation
-   - Removed "Scroll to explore wedding festivities" (Requirement 6)
+   5) "BEFORE FOREVER BEGINS" (1st UPLOADED IMAGE)
+   - Edge-to-edge presentation with elegant typography overlay
    ========================================================= */
 .ceremony-moment {
   position: relative;
@@ -1074,8 +1073,10 @@ main {
 .ceremony-image {
   position: relative;
   width: 100%;
+  max-width: 520px;
   line-height: 0;
   overflow: hidden;
+  margin: 0 auto;
 }
 
 .ceremony-artwork {
@@ -1085,6 +1086,88 @@ main {
   max-width: 100%;
   object-fit: cover;
   margin: 0 auto;
+}
+
+/* Elegant typography overlay directly on the maroon lower portion */
+.ceremony-text-overlay {
+  position: absolute;
+  top: 63%;
+  left: 6%;
+  right: 6%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  z-index: 6;
+  line-height: normal;
+  pointer-events: none;
+}
+
+.ceremony-filigree-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 140px;
+  margin-bottom: 8px;
+}
+
+.ceremony-filigree-line i {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 215, 140, 0.6), transparent);
+}
+
+.ceremony-filigree-line span {
+  color: #deb572;
+  font-size: 11px;
+}
+
+.ceremony-title {
+  font-family: 'Cinzel', 'Playfair Display', Italiana, Georgia, serif;
+  font-size: clamp(22px, 5.8vw, 36px);
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  color: #ffd88a;
+  margin: 0 0 6px;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.7);
+}
+
+.ceremony-desc {
+  font-family: 'Cormorant Garamond', 'Marcellus', Georgia, serif;
+  font-style: italic;
+  font-size: clamp(14px, 3.6vw, 18px);
+  line-height: 1.45;
+  color: #f7e6d2;
+  max-width: 380px;
+  margin: 0 auto 14px;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.6);
+}
+
+.ceremony-swipe-cue {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Cinzel', 'Marcellus', sans-serif;
+  font-size: clamp(9px, 2.4vw, 11px);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #deb572;
+  background: rgba(30, 4, 10, 0.65);
+  border: 1px solid rgba(222, 181, 114, 0.35);
+  padding: 6px 14px;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  animation: pulseSoft 2.4s ease-in-out infinite;
+}
+
+.ceremony-swipe-arrow {
+  animation: bounceDown 1.8s ease-in-out infinite;
+}
+
+@keyframes bounceDown {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(3px); }
 }
 
 .floating-glass {
@@ -1361,168 +1444,42 @@ main {
 }
 
 /* =========================================================
-   7) LAST PAGE CELEBRATION (REQUIREMENT 7)
-   Exact reproduction of 4th uploaded image:
-   - Rich chocolate espresso brown background
-   - Hanging golden lanterns with candlelight
-   - Fuchsia/magenta bougainvillea vines & drifting petals
-   - Ornate scalloped lace frame with dummy photo space
-   - "We cannot wait to celebrate with you" in script calligraphy
-   - Lotus seal & 19 & 20 NOVEMBER 2026 · RISHIKESH
+   6) LAST PAGE: EXACT 2nd UPLOADED ARTWORK WITH PHOTO & TEXT
+   - Exact art canvas with sunset couple photo in vintage lace frame
+   - "We cannot wait to celebrate with you" in cursive script
+   - Golden heart divider, lotus seal, 19 & 20 NOVEMBER 2026 · RISHIKESH
    ========================================================= */
 .footer-last-page-lux {
   position: relative;
-  min-height: 820px;
-  overflow: hidden;
+  background: #180903;
+  padding: 0 0 36px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-end;
+  overflow: hidden;
   text-align: center;
   color: #fffaf0;
-  background: radial-gradient(circle at 50% 30%, #3a1a0d 0%, #200d06 50%, #120703 100%);
-  padding: 60px 18px 32px;
 }
 
-.lux-bg-vignette {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 50% 45%, rgba(245, 185, 95, 0.16) 0%, rgba(18, 7, 3, 0.85) 75%);
-  pointer-events: none;
-}
-
-.lux-lantern-glow-left {
-  position: absolute;
-  left: 2%;
-  top: 10%;
-  width: 220px;
-  height: 220px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 195, 80, 0.32) 0%, transparent 70%);
-  filter: blur(25px);
-  pointer-events: none;
-}
-
-.lux-lantern-glow-right {
-  position: absolute;
-  right: 2%;
-  top: 15%;
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 195, 80, 0.25) 0%, transparent 70%);
-  filter: blur(25px);
-  pointer-events: none;
-}
-
-/* Hanging Antique Brass Lanterns */
-.lux-hanging-lanterns {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 4;
-}
-
-.lux-lantern {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  transform-origin: top center;
-  animation: lanternNaturalSway 5.5s ease-in-out infinite alternate;
-}
-
-.lantern-left-top {
-  left: 6%;
-  top: 0;
-  animation-duration: 4.8s;
-}
-
-.lantern-left-sub {
-  left: 17%;
-  top: 0;
-  animation-duration: 5.6s;
-  animation-delay: -1.5s;
-}
-
-.lantern-right-top {
-  right: 6%;
-  top: 0;
-  animation-duration: 5.2s;
-  animation-delay: -0.8s;
-}
-
-.lux-chain {
-  display: block;
-  width: 1px;
-  height: 85px;
-  background: linear-gradient(180deg, rgba(255, 215, 120, 0.4), rgba(210, 140, 50, 0.8));
-}
-
-.lux-chain.short {
-  height: 55px;
-}
-
-.lux-lamp-head {
+.lux-art-canvas {
   position: relative;
-  width: 32px;
-  height: 52px;
-  border-radius: 8px 8px 12px 12px;
-  background: linear-gradient(180deg, #d49339, #6f3b0e);
-  border: 1.5px solid rgba(255, 220, 130, 0.7);
-  box-shadow: 0 0 28px 8px rgba(255, 175, 45, 0.65), inset 0 0 10px rgba(255, 240, 170, 0.8);
-  display: grid;
-  place-items: center;
+  width: 100%;
+  max-width: 577px;
+  margin: 0 auto;
+  line-height: 0;
+  overflow: hidden;
 }
 
-.lux-lamp-head.sm {
-  width: 24px;
-  height: 40px;
+.lux-art-bg-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  object-fit: cover;
+  margin: 0 auto;
 }
 
-.lux-flame-flicker {
-  width: 10px;
-  height: 18px;
-  border-radius: 50% 50% 35% 35%;
-  background: #fff5b8;
-  box-shadow: 0 0 14px 4px #ff9524;
-  animation: flameFlicker 1.8s ease-in-out infinite alternate;
-}
-
-@keyframes flameFlicker {
-  0% { transform: scale(0.9) translateY(1px); opacity: 0.85; }
-  50% { transform: scale(1.15) translateY(-1px); opacity: 1; filter: drop-shadow(0 0 8px #ffb347); }
-  100% { transform: scale(0.95) translateY(0); opacity: 0.9; }
-}
-
-/* Cascading Bougainvillea Floral Vines in Corners */
-.lux-corner-florals {
-  position: absolute;
-  pointer-events: none;
-  z-index: 5;
-  background-repeat: no-repeat;
-  background-size: contain;
-}
-
-.lux-corner-florals.top-left {
-  top: 0;
-  left: 0;
-  width: min(48vw, 240px);
-  height: min(48vw, 240px);
-  background: radial-gradient(circle at 15% 15%, rgba(235, 52, 110, 0.75) 0%, transparent 65%);
-  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.5));
-}
-
-.lux-corner-florals.top-right {
-  top: 0;
-  right: 0;
-  width: min(40vw, 200px);
-  height: min(40vw, 200px);
-  background: radial-gradient(circle at 85% 15%, rgba(235, 52, 110, 0.65) 0%, transparent 65%);
-  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.5));
-}
-
-/* Drifting pink petals across last page */
+/* Drifting pink petals across last page artwork */
 .lux-drifting-petals {
   position: absolute;
   inset: 0;
@@ -1533,12 +1490,12 @@ main {
 
 .lux-petal {
   position: absolute;
-  width: 13px;
-  height: 19px;
+  width: 12px;
+  height: 18px;
   background: radial-gradient(circle, #ff8fae 20%, #d82b5f 90%);
   border-radius: 60% 40% 70% 30% / 60% 30% 70% 40%;
-  opacity: 0.7;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
+  opacity: 0.75;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.45));
   animation: petalFallDown 11s linear infinite;
 }
 
@@ -1547,96 +1504,13 @@ main {
 .petal-float-2 { left: 48%; top: 5%; animation-duration: 8.8s; animation-delay: 1.2s; }
 .petal-float-3 { left: 72%; top: 5%; animation-duration: 10s; animation-delay: 3s; }
 .petal-float-4 { left: 86%; top: 5%; animation-duration: 12s; animation-delay: 0.8s; }
-
-/* 
-  Centerpiece: Ornate Vintage Scalloped Lace Frame with Dummy Photo Space
-*/
-.lux-photo-frame-wrap {
-  position: relative;
-  z-index: 8;
-  width: min(86%, 330px);
-  margin: 0 auto;
-}
-
-.lace-frame-outer {
-  position: relative;
-  padding: 16px;
-  background: #fbf7ef;
-  border-radius: 8px;
-  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 240, 210, 0.3);
-  /* Scalloped decorative border edge effect */
-  border: 4px solid #fff5e3;
-  outline: 2px dashed rgba(184, 123, 34, 0.35);
-  outline-offset: -10px;
-}
-
-.lace-flower-cluster {
-  position: absolute;
-  width: 60px;
-  height: 60px;
-  z-index: 10;
-  pointer-events: none;
-  background: radial-gradient(circle, rgba(235, 52, 110, 0.85) 0%, rgba(200, 30, 85, 0.7) 45%, transparent 70%);
-  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
-  border-radius: 50%;
-}
-
-.lace-flower-cluster.top-right {
-  top: -12px;
-  right: -12px;
-}
-
-.lace-flower-cluster.bottom-left {
-  bottom: -12px;
-  left: -12px;
-}
-
-/* Dummy Photo Slot */
-.lace-photo-container {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 3 / 4;
-  overflow: hidden;
-  border-radius: 4px;
-  background: #2a150c;
-  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.5);
-}
-
-.lace-photo-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 30%;
-  display: block;
-}
-
-.photo-sun-flare {
-  position: absolute;
-  top: 15%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 90px;
-  height: 90px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 245, 200, 0.55) 0%, rgba(255, 190, 70, 0.2) 50%, transparent 75%);
-  pointer-events: none;
-}
-
-.photo-dummy-badge {
-  position: absolute;
-  bottom: 8px;
-  right: 8px;
-  padding: 3px 8px;
-  background: rgba(18, 9, 4, 0.65);
-  backdrop-filter: blur(4px);
-  color: #fff0d2;
-  font-size: 8px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  border-radius: 4px;
-  border: 1px solid rgba(255, 215, 140, 0.35);
-  pointer-events: none;
-}
+.petal-float-5 { left: 20%; top: 5%; animation-duration: 10.5s; animation-delay: 4.2s; }
+.petal-float-6 { left: 60%; top: 5%; animation-duration: 9.5s; animation-delay: 1.8s; }
+.petal-float-7 { left: 38%; top: 5%; animation-duration: 13s; animation-delay: 3.5s; }
+.petal-float-8 { left: 82%; top: 5%; animation-duration: 8.2s; animation-delay: 5s; }
+.petal-float-9 { left: 15%; top: 5%; animation-duration: 11s; animation-delay: 6s; }
+.petal-float-10 { left: 52%; top: 5%; animation-duration: 12.2s; animation-delay: 2s; }
+.petal-float-11 { left: 68%; top: 5%; animation-duration: 9.8s; animation-delay: 4.5s; }
 
 /* Wording Directly Below Frame */
 .lux-wording-wrap {
@@ -1863,12 +1737,6 @@ main {
   }
   .actions {
     grid-template-columns: 1fr 1fr;
-  }
-  .footer-last-page-lux {
-    min-height: 920px;
-  }
-  .lux-photo-frame-wrap {
-    width: 360px;
   }
 }
 

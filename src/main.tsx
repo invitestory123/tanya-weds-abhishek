@@ -41,7 +41,7 @@ const events = [
     ],
     venue: 'Pebbles Resort, Rishikesh',
     note: 'An enchanting evening of love, music, dance, and celebration as we exchange rings and begin a beautiful new chapter together.',
-    icon: '✨'
+    icon: '💍'
   },
   {
     name: 'Lagan & Sagai',
@@ -63,7 +63,7 @@ const events = [
     ],
     venue: 'Pebbles Resort, Rishikesh',
     note: 'Witness a beautiful moment of love and togetherness as the bride and groom exchange garlands, promising a lifetime of happiness and togetherness.',
-    icon: '💍'
+    icon: '🌻'
   },
   {
     name: 'Vidai',
@@ -265,12 +265,6 @@ function RoyalVideoWelcome({onEnter}:{onEnter:()=>void}){
       {/* Opening Interface: CTA button with lighter, non-bold text + bride & groom names below */}
       {!isPlaying && (
         <div className="gate-welcome-ui">
-          {/* Top Royal Emblem */}
-          <div className="gate-crest">
-            <span className="gate-lotus-icon">🪷</span>
-            <span className="gate-royal-kicker">ROYAL WEDDING INVITATION</span>
-          </div>
-
           {/* Action Button: Lighter font colour & not bold */}
           <button
             type="button"
@@ -385,127 +379,69 @@ function FamilyBlessingCard(){
   );
 }
 
-// 7) Last Page Recreated exactly from 4th uploaded image (rich chocolate brown, lace frame, couple dummy photo, script calligraphy)
+// 6) Last Page: Exact 2nd uploaded image with 3rd uploaded photo in frame, with original celebratory text below
 function LastPageCelebration(){
   return (
     <footer className="footer-last-page-lux">
-      {/* Warm ambient radial glows */}
-      <div className="lux-bg-vignette" />
-      <div className="lux-lantern-glow-left" />
-      <div className="lux-lantern-glow-right" />
+      {/* Exact uploaded artwork composite with sunset photo framed and floral accents intact */}
+      <div className="lux-art-canvas">
+        <img
+          src="/assets/last-page-composite.jpg"
+          alt="We cannot wait to celebrate with you - Tanya & Abhishek"
+          className="lux-art-bg-img"
+          loading="lazy"
+        />
 
-      {/* Hanging Antique Lanterns at Top-Left and Top-Right */}
-      <div className="lux-hanging-lanterns" aria-hidden="true">
-        <div className="lux-lantern lantern-left-top">
-          <i className="lux-chain" />
-          <div className="lux-lamp-head">
-            <span className="lux-flame-flicker" />
+        {/* Floating flower petals */}
+        <div className="lux-drifting-petals" aria-hidden="true">
+          {Array.from({length: 12}, (_, i) => (
+            <span key={i} className={`lux-petal petal-float-${i}`} />
+          ))}
+        </div>
+
+        {/* Typography directly below the frame matching user reference design */}
+        <motion.div
+          className="lux-wording-wrap"
+          initial={{ opacity: 0, y: 22, scale: 0.95 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true, amount: 0.25 }}
+          transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
+        >
+          {/* Heart Divider: ─── 💛 ─── */}
+          <div className="lux-heart-divider">
+            <span className="heart-rule" />
+            <span className="heart-icon">💛</span>
+            <span className="heart-rule" />
           </div>
-        </div>
-        <div className="lux-lantern lantern-left-sub">
-          <i className="lux-chain short" />
-          <div className="lux-lamp-head sm">
-            <span className="lux-flame-flicker" />
+
+          {/* Cursive script text: We cannot wait to celebrate with you */}
+          <h2 className="lux-script-quote">
+            We cannot wait to celebrate with you
+          </h2>
+
+          {/* Golden Lotus emblem */}
+          <div className="lux-lotus-seal">
+            <svg width="34" height="26" viewBox="0 0 48 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M24 2C24 2 28 12 28 22C28 27.5 25.5 32 24 34C22.5 32 20 27.5 20 22C20 12 24 2 24 2Z" stroke="#deb572" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M24 14C27.5 16 35.5 21 35.5 27.5C35.5 31.5 32.5 34 29 34C26.5 34 24.8 32.5 24 31" stroke="#deb572" strokeWidth="1.5" strokeLinecap="round"/>
+              <path d="M24 14C20.5 16 12.5 21 12.5 27.5C12.5 31.5 15.5 34 19 34C21.5 34 23.2 32.5 24 31" stroke="#deb572" strokeWidth="1.5" strokeLinecap="round"/>
+              <path d="M24 22C29 23.5 41 27.5 41 33C41 35.5 38 36.5 35 36.5C30.5 36.5 26.5 33.5 24 31" stroke="#deb572" strokeWidth="1.4" strokeLinecap="round"/>
+              <path d="M24 22C19 23.5 7 27.5 7 33C7 35.5 10 36.5 13 36.5C17.5 36.5 21.5 33.5 24 31" stroke="#deb572" strokeWidth="1.4" strokeLinecap="round"/>
+            </svg>
           </div>
-        </div>
-        <div className="lux-lantern lantern-right-top">
-          <i className="lux-chain" />
-          <div className="lux-lamp-head">
-            <span className="lux-flame-flicker" />
+
+          {/* Date & Location: 19 & 20 NOVEMBER 2026 · RISHIKESH */}
+          <p className="lux-event-date">
+            19 &amp; 20 NOVEMBER 2026 &nbsp;·&nbsp; RISHIKESH
+          </p>
+
+          {/* Diamond Rule: ─── ✦ ─── */}
+          <div className="lux-diamond-rule">
+            <span className="diamond-dash" />
+            <span className="diamond-star">✦</span>
+            <span className="diamond-dash" />
           </div>
-        </div>
-      </div>
-
-      {/* Cascading Bougainvillea Floral Vines framing the corners */}
-      <div className="lux-corner-florals top-left" aria-hidden="true" />
-      <div className="lux-corner-florals top-right" aria-hidden="true" />
-
-      {/* Floating flower petals */}
-      <div className="lux-drifting-petals" aria-hidden="true">
-        {Array.from({length: 14}, (_, i) => (
-          <span key={i} className={`lux-petal petal-float-${i}`} />
-        ))}
-      </div>
-
-      {/* Centerpiece: Ornate Scalloped Vintage Lace Picture Frame with Dummy Photo Space */}
-      <motion.div
-        className="lux-photo-frame-wrap"
-        initial={{ opacity: 0, scale: 0.9, y: 30 }}
-        whileInView={{ opacity: 1, scale: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
-      >
-        {/* Scalloped Lace Frame Container */}
-        <div className="lace-frame-outer">
-          <div className="lace-scallop-border" />
-          
-          {/* Corner Floral Bouquet Decorations */}
-          <div className="lace-flower-cluster top-right" aria-hidden="true" />
-          <div className="lace-flower-cluster bottom-left" aria-hidden="true" />
-
-          {/* Photo inside lace frame: uploaded couple sunset photo */}
-          <div className="lace-photo-container">
-            <img
-              src="/assets/couple-sunset.jpg"
-              alt="Tanya & Abhishek romantic sunset moment"
-              className="lace-photo-img"
-              loading="lazy"
-            />
-            {/* Subtle warm sunset light overlay inside the frame */}
-            <div className="photo-sun-flare" />
-          </div>
-        </div>
-      </motion.div>
-
-      {/* Typography directly below the frame matching 4th image */}
-      <motion.div
-        className="lux-wording-wrap"
-        initial={{ opacity: 0, y: 24, scale: 0.94 }}
-        whileInView={{ opacity: 1, y: 0, scale: 1 }}
-        viewport={{ once: true, amount: 0.25 }}
-        transition={{ type: "spring", stiffness: 240, damping: 18, delay: 0.2 }}
-      >
-        {/* Heart Divider: ─── 💛 ─── */}
-        <div className="lux-heart-divider">
-          <span className="heart-rule" />
-          <span className="heart-icon">💛</span>
-          <span className="heart-rule" />
-        </div>
-
-        {/* Cursive script text: We cannot wait to celebrate with you */}
-        <h2 className="lux-script-quote">
-          We cannot wait to celebrate with you
-        </h2>
-
-        {/* Golden Lotus emblem */}
-        <div className="lux-lotus-seal">
-          <svg width="34" height="26" viewBox="0 0 48 38" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M24 2C24 2 28 12 28 22C28 27.5 25.5 32 24 34C22.5 32 20 27.5 20 22C20 12 24 2 24 2Z" stroke="#deb572" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
-            <path d="M24 14C27.5 16 35.5 21 35.5 27.5C35.5 31.5 32.5 34 29 34C26.5 34 24.8 32.5 24 31" stroke="#deb572" strokeWidth="1.5" strokeLinecap="round"/>
-            <path d="M24 14C20.5 16 12.5 21 12.5 27.5C12.5 31.5 15.5 34 19 34C21.5 34 23.2 32.5 24 31" stroke="#deb572" strokeWidth="1.5" strokeLinecap="round"/>
-            <path d="M24 22C29 23.5 41 27.5 41 33C41 35.5 38 36.5 35 36.5C30.5 36.5 26.5 33.5 24 31" stroke="#deb572" strokeWidth="1.4" strokeLinecap="round"/>
-            <path d="M24 22C19 23.5 7 27.5 7 33C7 35.5 10 36.5 13 36.5C17.5 36.5 21.5 33.5 24 31" stroke="#deb572" strokeWidth="1.4" strokeLinecap="round"/>
-          </svg>
-        </div>
-
-        {/* Date & Location: 19 & 20 NOVEMBER 2026 · RISHIKESH */}
-        <p className="lux-event-date">
-          19 &amp; 20 NOVEMBER 2026 &nbsp;·&nbsp; RISHIKESH
-        </p>
-
-        {/* Diamond Rule: ─── ✦ ─── */}
-        <div className="lux-diamond-rule">
-          <span className="diamond-dash" />
-          <span className="diamond-star">✦</span>
-          <span className="diamond-dash" />
-        </div>
-      </motion.div>
-
-      {/* Bottom glowing candles and floral bed */}
-      <div className="lux-bottom-bed" aria-hidden="true">
-        <span className="lux-diya-glow diya-left" />
-        <span className="lux-diya-glow diya-center" />
-        <span className="lux-diya-glow diya-right" />
+        </motion.div>
       </div>
 
       <a
@@ -694,17 +630,18 @@ function App(){
           </div>
 
           {/* 
-            3) Bride & Groom names with original dynamic pop-up spring bounce & golden glow
+            2) Bride & Groom names with royal typography & graceful slow pop-up animation
           */}
           <motion.h1
             className="hero-names"
-            initial={{ opacity: 0, scale: 0.62, y: 35 }}
-            animate={entered ? { opacity: 1, scale: 1, y: 0 } : { opacity: 0, scale: 0.62, y: 35 }}
+            initial={{ opacity: 0, scale: 0.65, y: 35 }}
+            animate={entered ? { opacity: 1, scale: 1, y: 0 } : { opacity: 0, scale: 0.65, y: 35 }}
             transition={{
               type: "spring",
-              stiffness: 280,
-              damping: 16,
-              delay: 0.28
+              stiffness: 70,
+              damping: 22,
+              mass: 1.4,
+              delay: 0.35
             }}
           >
             Tanya{' '}
@@ -712,7 +649,7 @@ function App(){
               className="names-amp"
               initial={{ scale: 0, rotate: -25 }}
               animate={entered ? { scale: 1, rotate: 0 } : { scale: 0 }}
-              transition={{ delay: 0.48, type: "spring", stiffness: 350, damping: 15 }}
+              transition={{ delay: 0.85, type: "spring", stiffness: 90, damping: 20 }}
             >
               &
             </motion.span>{' '}
@@ -778,8 +715,11 @@ function App(){
       <FamilyBlessingCard />
 
       {/* 
-        6) "Before forever begins" section: 1st uploaded image
-        (Removed "Scroll to explore wedding festivities" as requested in Requirement 6)
+        5) "Before forever begins" section: 1st uploaded image
+        With text overlay as earlier:
+        "Before forever begins"
+        "a celebration of love, a lifetime of togetherness, and memories to cherish forever"
+        "Swipe through our celebration below"
       */}
       <section className="ceremony-moment">
         <div className="floating-glass lotus-one">✿</div>
@@ -793,6 +733,27 @@ function App(){
             alt="Before forever begins - Tanya and Abhishek wedding celebration"
             className="ceremony-artwork"
           />
+
+          {/* Text overlay on the lower maroon area */}
+          <motion.div
+            className="ceremony-text-overlay"
+            initial={{ opacity: 0, y: 22 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.25 }}
+            transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <div className="ceremony-filigree-line">
+              <i /><span>✦</span><i />
+            </div>
+            <h2 className="ceremony-title">Before forever begins</h2>
+            <p className="ceremony-desc">
+              a celebration of love, a lifetime of togetherness, and memories to cherish forever
+            </p>
+            <div className="ceremony-swipe-cue">
+              <span>Swipe through our celebration below</span>
+              <ArrowDown size={14} className="ceremony-swipe-arrow" />
+            </div>
+          </motion.div>
         </div>
       </section>
 
