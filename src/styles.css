@@ -522,7 +522,7 @@ main {
   width: min(92%, 480px);
   margin-left: auto;
   margin-right: auto;
-  margin-top: clamp(48px, 9.5svh, 85px);
+  margin-top: clamp(115px, 17svh, 160px);
   padding: 0 12px;
   display: flex;
   flex-direction: column;
@@ -548,15 +548,15 @@ main {
 
 .blessing {
   font-family: 'Cinzel', Marcellus, serif;
-  font-size: clamp(10px, 2.6vw, 12.5px);
+  font-size: clamp(11px, 2.7vw, 13.5px);
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: #f7e2be;
+  color: #fff2d6;
   font-weight: 600;
-  margin: 5px auto 3px;
+  margin: 6px auto 4px;
   text-align: center;
   width: 100%;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.85), 0 0 14px rgba(245, 215, 140, 0.55);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.95), 0 0 16px rgba(245, 215, 140, 0.65);
 }
 
 .arch-filigree {
@@ -1512,16 +1512,19 @@ main {
 .petal-float-10 { left: 52%; top: 5%; animation-duration: 12.2s; animation-delay: 2s; }
 .petal-float-11 { left: 68%; top: 5%; animation-duration: 9.8s; animation-delay: 4.5s; }
 
-/* Wording Directly Below Frame */
+/* Wording directly ON TOP of the image layer in the chocolate brown area below the lace frame */
 .lux-wording-wrap {
-  position: relative;
+  position: absolute;
+  top: 65.2%;
+  left: 4%;
+  right: 4%;
   z-index: 10;
-  margin-top: 24px;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  width: min(92%, 480px);
+  pointer-events: none;
+  line-height: normal;
 }
 
 /* Heart Divider: ─── 💛 ─── */
@@ -1529,51 +1532,51 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
+  gap: 10px;
   width: 100%;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
 }
 
 .heart-rule {
   display: inline-block;
-  width: clamp(38px, 12vw, 68px);
+  width: clamp(28px, 8vw, 55px);
   height: 1px;
   background: linear-gradient(90deg, transparent, #deb572, transparent);
 }
 
 .heart-icon {
-  font-size: 14px;
+  font-size: clamp(12px, 3vw, 15px);
   filter: drop-shadow(0 0 6px rgba(255, 210, 80, 0.8));
 }
 
 /* Cursive script text: We cannot wait to celebrate with you */
 .lux-script-quote {
   font-family: 'Great Vibes', 'Alex Brush', cursive;
-  font-size: clamp(24px, 5.8vw, 34px);
-  line-height: 1.25;
+  font-size: clamp(22px, 5.6vw, 36px);
+  line-height: 1.15;
   color: #fffaf0;
   font-weight: 400;
-  margin: 4px 0 10px;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9), 0 0 16px rgba(255, 215, 140, 0.4);
+  margin: 2px 0 6px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.95), 0 0 16px rgba(255, 215, 140, 0.45);
 }
 
 .lux-lotus-seal {
   display: flex;
   justify-content: center;
-  margin: 4px 0 10px;
-  filter: drop-shadow(0 0 8px rgba(255, 215, 120, 0.5));
+  margin: 2px 0 6px;
+  filter: drop-shadow(0 0 8px rgba(255, 215, 120, 0.55));
 }
 
 /* Date & Location: 19 & 20 NOVEMBER 2026 · RISHIKESH */
 .lux-event-date {
   font-family: 'Cinzel', Marcellus, Georgia, serif;
-  font-size: clamp(11px, 2.7vw, 13px);
-  letter-spacing: 0.24em;
+  font-size: clamp(10px, 2.5vw, 13px);
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   color: #ecd0a6;
   font-weight: 600;
-  margin: 2px 0 10px;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.85);
+  margin: 2px 0 6px;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
 }
 
 /* Diamond Rule: ─── ✦ ─── */
@@ -1586,7 +1589,7 @@ main {
 
 .diamond-dash {
   display: inline-block;
-  width: 28px;
+  width: 24px;
   height: 1px;
   background: linear-gradient(90deg, transparent, #deb572, transparent);
 }
@@ -1596,36 +1599,11 @@ main {
   color: #deb572;
 }
 
-/* Bottom Glowing Diyas Bed */
-.lux-bottom-bed {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 80px;
-  pointer-events: none;
-  background: radial-gradient(ellipse at 50% 100%, rgba(245, 140, 50, 0.35) 0%, transparent 70%);
-}
-
-.lux-diya-glow {
-  position: absolute;
-  bottom: 12px;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 200, 90, 0.6) 0%, transparent 70%);
-  filter: blur(14px);
-}
-
-.diya-left { left: 15%; }
-.diya-center { left: 48%; }
-.diya-right { right: 15%; }
-
 .lux-footer-credit {
   position: relative;
   z-index: 12;
   display: block;
-  margin-top: 36px;
+  margin-top: 18px;
   font-size: 9px;
   text-transform: uppercase;
   letter-spacing: 0.2em;
