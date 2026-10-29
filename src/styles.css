@@ -1512,19 +1512,17 @@ main {
 .petal-float-10 { left: 52%; top: 5%; animation-duration: 12.2s; animation-delay: 2s; }
 .petal-float-11 { left: 68%; top: 5%; animation-duration: 9.8s; animation-delay: 4.5s; }
 
-/* Wording directly ON TOP of the image layer in the chocolate brown area below the lace frame */
+/* Wording is authentically embedded in the uploaded artwork; keep visually hidden for accessible screen-readers */
 .lux-wording-wrap {
   position: absolute;
-  top: 65.2%;
-  left: 4%;
-  right: 4%;
-  z-index: 10;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  pointer-events: none;
-  line-height: normal;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 /* Heart Divider: ─── 💛 ─── */
