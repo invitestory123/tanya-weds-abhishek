@@ -617,9 +617,9 @@ function LastPageCelebration(){
             </svg>
           </div>
 
-          {/* Date & Location: 19 & 20 NOVEMBER 2026 · RISHIKESH */}
+          {/* Date & Location: 20 NOVEMBER 2026 · RISHIKESH */}
           <p className="lux-event-date">
-            19 &amp; 20 NOVEMBER 2026 &nbsp;·&nbsp; RISHIKESH
+            20 NOVEMBER 2026 &nbsp;·&nbsp; RISHIKESH
           </p>
 
           {/* Diamond Rule: ─── ✦ ─── */}
