@@ -206,6 +206,193 @@ function ScratchDate(){
   );
 }
 
+// 3) Real Looking Hanging Flowers Canopy across top of 1st Page with Slow Breeze Sway Animation
+function RealHangingFlowers(){
+  return (
+    <div className="real-hanging-canopy" aria-hidden="true">
+      {/* Top draped foliage swag connecting the garland anchors */}
+      <svg className="canopy-top-foliage" viewBox="0 0 1200 48" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="foliageGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="#1e3814" stopOpacity="0.95" />
+            <stop offset="60%" stopColor="#2d521d" stopOpacity="0.85" />
+            <stop offset="100%" stopColor="#437628" stopOpacity="0" />
+          </linearGradient>
+          <linearGradient id="goldBellGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#966c28" />
+            <stop offset="35%" stopColor="#ffd875" />
+            <stop offset="65%" stopColor="#e5b144" />
+            <stop offset="100%" stopColor="#7a541a" />
+          </linearGradient>
+          <radialGradient id="jasmineBudGrad" cx="35%" cy="30%" r="70%">
+            <stop offset="0%" stopColor="#ffffff" />
+            <stop offset="55%" stopColor="#fbf6eb" />
+            <stop offset="85%" stopColor="#eedcb9" />
+            <stop offset="100%" stopColor="#d4be95" />
+          </radialGradient>
+          <linearGradient id="lotusPetalGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="#ffb3c6" />
+            <stop offset="45%" stopColor="#f84d7d" />
+            <stop offset="100%" stopColor="#b41643" />
+          </linearGradient>
+          <linearGradient id="bougainGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#ff7096" />
+            <stop offset="50%" stopColor="#e91e63" />
+            <stop offset="100%" stopColor="#9c0936" />
+          </linearGradient>
+        </defs>
+        <path d="M0,0 Q150,32 300,10 Q450,35 600,8 Q750,35 900,10 Q1050,32 1200,0 L1200,0 L0,0 Z" fill="url(#foliageGrad)" />
+      </svg>
+
+      {/* Strand 0: Far-Left Cascading Bougainvillea & Golden Temple Bell */}
+      <div className="strand-item strand-far-left">
+        <svg width="42" height="230" viewBox="0 0 42 230" fill="none">
+          <path d="M21,0 Q15,40 23,80 Q29,120 18,160 Q13,185 21,205" stroke="#335822" strokeWidth="2.4" strokeLinecap="round" />
+          <ellipse cx="14" cy="22" rx="7" ry="4" transform="rotate(-30 14 22)" fill="#3d6828" />
+          <ellipse cx="28" cy="35" rx="8" ry="4" transform="rotate(25 28 35)" fill="#4d8232" />
+          <path d="M21,48 C16,42 11,48 16,56 C11,62 18,66 21,60 C24,66 31,62 26,56 C31,48 26,42 21,48 Z" fill="url(#bougainGrad)" />
+          <ellipse cx="12" cy="76" rx="7" ry="4" transform="rotate(-20 12 76)" fill="#3d6828" />
+          <ellipse cx="30" cy="94" rx="8" ry="4.5" transform="rotate(35 30 94)" fill="#4d8232" />
+          <path d="M21,108 C16,102 10,108 15,116 C10,123 18,127 21,121 C24,127 32,123 27,116 C32,108 26,102 21,108 Z" fill="url(#bougainGrad)" />
+          <ellipse cx="12" cy="142" rx="7" ry="4" transform="rotate(-25 12 142)" fill="#3d6828" />
+          <path d="M20,165 C15,160 10,166 15,173 C10,180 17,184 20,178 C23,184 30,180 25,173 C30,166 25,160 20,165 Z" fill="url(#bougainGrad)" />
+          <path d="M14,204 L28,204 C28,204 27,215 29,219 L13,219 C15,215 14,204 14,204 Z" fill="url(#goldBellGrad)" />
+          <ellipse cx="21" cy="219" rx="8.5" ry="2.5" fill="url(#goldBellGrad)" />
+          <circle cx="21" cy="223" r="2.2" fill="#d4a34b" />
+        </svg>
+      </div>
+
+      {/* Strand 1: Left Mogra/Jasmine Pearl Garland with Lotus Blossom */}
+      <div className="strand-item strand-left-mid">
+        <svg width="34" height="185" viewBox="0 0 34 185" fill="none">
+          <line x1="17" y1="0" x2="17" y2="152" stroke="#486e32" strokeWidth="1.5" />
+          {[12, 25, 38, 51, 64, 77, 90, 103, 116, 129, 142].map(y => (
+            <g key={y}>
+              <circle cx="17" cy={y} r="5.8" fill="url(#jasmineBudGrad)" />
+              <ellipse cx="15.5" cy={y - 1.5} rx="2" ry="1.2" fill="#ffffff" opacity="0.8" />
+              <path d={`M14,${y+4} L17,${y+6} L20,${y+4}`} stroke="#3d6526" strokeWidth="1.2" fill="none" />
+            </g>
+          ))}
+          <g transform="translate(17, 164)">
+            <path d="M0,0 C-12,-8 -13,-18 0,-21 C13,-18 12,-8 0,0 Z" fill="url(#lotusPetalGrad)" />
+            <path d="M-2,-2 C-15,-6 -8,-16 0,-18" stroke="#fce4ec" strokeWidth="0.8" fill="none" />
+            <path d="M2,-2 C15,-6 8,-16 0,-18" stroke="#fce4ec" strokeWidth="0.8" fill="none" />
+            <circle cx="0" cy="-6" r="2.5" fill="#ffd54f" />
+          </g>
+        </svg>
+      </div>
+
+      {/* Strand 2: Center-Left Jasmine Garland */}
+      <div className="strand-item strand-center-left">
+        <svg width="28" height="130" viewBox="0 0 28 130" fill="none">
+          <line x1="14" y1="0" x2="14" y2="110" stroke="#486e32" strokeWidth="1.4" />
+          {[10, 23, 36, 49, 62, 75, 88, 101].map(y => (
+            <g key={y}>
+              <circle cx="14" cy={y} r="5.2" fill="url(#jasmineBudGrad)" />
+              <ellipse cx="12.5" cy={y - 1.2} rx="1.8" ry="1" fill="#ffffff" opacity="0.8" />
+            </g>
+          ))}
+          <path d="M14,124 C6,118 7,109 14,107 C21,109 22,118 14,124 Z" fill="url(#lotusPetalGrad)" />
+        </svg>
+      </div>
+
+      {/* Strand 3: High Arch Drape Left */}
+      <div className="strand-item strand-inner-left">
+        <svg width="24" height="90" viewBox="0 0 24 90" fill="none">
+          <line x1="12" y1="0" x2="12" y2="76" stroke="#486e32" strokeWidth="1.2" />
+          {[10, 22, 34, 46, 58, 70].map(y => (
+            <circle key={y} cx="12" cy={y} r="4.8" fill="url(#jasmineBudGrad)" />
+          ))}
+          <circle cx="12" cy="80" r="3" fill="url(#goldBellGrad)" />
+        </svg>
+      </div>
+
+      {/* Strand 4: Center Lotus & Brass Bell Pendant directly under arch apex */}
+      <div className="strand-item strand-apex-center">
+        <svg width="38" height="150" viewBox="0 0 38 150" fill="none">
+          <line x1="19" y1="0" x2="19" y2="92" stroke="#486e32" strokeWidth="1.6" />
+          {[10, 23, 36, 49, 62, 75].map(y => (
+            <g key={y}>
+              <circle cx="19" cy={y} r="5.6" fill="url(#jasmineBudGrad)" />
+              <ellipse cx="17.5" cy={y - 1.3} rx="1.9" ry="1.1" fill="#ffffff" opacity="0.85" />
+            </g>
+          ))}
+          <g transform="translate(19, 102)">
+            <path d="M0,0 C-14,-9 -14,-22 0,-24 C14,-22 14,-9 0,0 Z" fill="url(#lotusPetalGrad)" />
+            <circle cx="0" cy="-7" r="2.8" fill="#ffd54f" />
+          </g>
+          <path d="M12,122 L26,122 C26,122 25,133 27,137 L11,137 C13,133 12,122 12,122 Z" fill="url(#goldBellGrad)" />
+          <ellipse cx="19" cy="137" rx="8" ry="2.2" fill="url(#goldBellGrad)" />
+          <circle cx="19" cy="141" r="2" fill="#d4a34b" />
+        </svg>
+      </div>
+
+      {/* Strand 5: High Arch Drape Right */}
+      <div className="strand-item strand-inner-right">
+        <svg width="24" height="90" viewBox="0 0 24 90" fill="none">
+          <line x1="12" y1="0" x2="12" y2="76" stroke="#486e32" strokeWidth="1.2" />
+          {[10, 22, 34, 46, 58, 70].map(y => (
+            <circle key={y} cx="12" cy={y} r="4.8" fill="url(#jasmineBudGrad)" />
+          ))}
+          <circle cx="12" cy="80" r="3" fill="url(#goldBellGrad)" />
+        </svg>
+      </div>
+
+      {/* Strand 6: Center-Right Jasmine Garland */}
+      <div className="strand-item strand-center-right">
+        <svg width="28" height="130" viewBox="0 0 28 130" fill="none">
+          <line x1="14" y1="0" x2="14" y2="110" stroke="#486e32" strokeWidth="1.4" />
+          {[10, 23, 36, 49, 62, 75, 88, 101].map(y => (
+            <g key={y}>
+              <circle cx="14" cy={y} r="5.2" fill="url(#jasmineBudGrad)" />
+              <ellipse cx="12.5" cy={y - 1.2} rx="1.8" ry="1" fill="#ffffff" opacity="0.8" />
+            </g>
+          ))}
+          <path d="M14,124 C6,118 7,109 14,107 C21,109 22,118 14,124 Z" fill="url(#lotusPetalGrad)" />
+        </svg>
+      </div>
+
+      {/* Strand 7: Right Mogra/Jasmine Pearl Garland with Lotus Blossom */}
+      <div className="strand-item strand-right-mid">
+        <svg width="34" height="185" viewBox="0 0 34 185" fill="none">
+          <line x1="17" y1="0" x2="17" y2="152" stroke="#486e32" strokeWidth="1.5" />
+          {[12, 25, 38, 51, 64, 77, 90, 103, 116, 129, 142].map(y => (
+            <g key={y}>
+              <circle cx="17" cy={y} r="5.8" fill="url(#jasmineBudGrad)" />
+              <ellipse cx="15.5" cy={y - 1.5} rx="2" ry="1.2" fill="#ffffff" opacity="0.8" />
+              <path d={`M14,${y+4} L17,${y+6} L20,${y+4}`} stroke="#3d6526" strokeWidth="1.2" fill="none" />
+            </g>
+          ))}
+          <g transform="translate(17, 164)">
+            <path d="M0,0 C-12,-8 -13,-18 0,-21 C13,-18 12,-8 0,0 Z" fill="url(#lotusPetalGrad)" />
+            <path d="M-2,-2 C-15,-6 -8,-16 0,-18" stroke="#fce4ec" strokeWidth="0.8" fill="none" />
+            <path d="M2,-2 C15,-6 8,-16 0,-18" stroke="#fce4ec" strokeWidth="0.8" fill="none" />
+            <circle cx="0" cy="-6" r="2.5" fill="#ffd54f" />
+          </g>
+        </svg>
+      </div>
+
+      {/* Strand 8: Far-Right Cascading Bougainvillea & Golden Temple Bell */}
+      <div className="strand-item strand-far-right">
+        <svg width="42" height="230" viewBox="0 0 42 230" fill="none">
+          <path d="M21,0 Q27,40 19,80 Q13,120 24,160 Q29,185 21,205" stroke="#335822" strokeWidth="2.4" strokeLinecap="round" />
+          <ellipse cx="28" cy="22" rx="7" ry="4" transform="rotate(30 28 22)" fill="#3d6828" />
+          <ellipse cx="14" cy="35" rx="8" ry="4" transform="rotate(-25 14 35)" fill="#4d8232" />
+          <path d="M21,48 C26,42 31,48 26,56 C31,62 24,66 21,60 C18,66 11,62 16,56 C11,48 16,42 21,48 Z" fill="url(#bougainGrad)" />
+          <ellipse cx="30" cy="76" rx="7" ry="4" transform="rotate(20 30 76)" fill="#3d6828" />
+          <ellipse cx="12" cy="94" rx="8" ry="4.5" transform="rotate(-35 12 94)" fill="#4d8232" />
+          <path d="M21,108 C26,102 32,108 27,116 C32,123 24,127 21,121 C18,127 10,123 15,116 C10,108 16,102 21,108 Z" fill="url(#bougainGrad)" />
+          <ellipse cx="30" cy="142" rx="7" ry="4" transform="rotate(25 30 142)" fill="#3d6828" />
+          <path d="M22,165 C27,160 32,166 27,173 C32,180 25,184 22,178 C19,184 12,180 17,173 C12,166 17,160 22,165 Z" fill="url(#bougainGrad)" />
+          <path d="M14,204 L28,204 C28,204 27,215 29,219 L13,219 C15,215 14,204 14,204 Z" fill="url(#goldBellGrad)" />
+          <ellipse cx="21" cy="219" rx="8.5" ry="2.5" fill="url(#goldBellGrad)" />
+          <circle cx="21" cy="223" r="2.2" fill="#d4a34b" />
+        </svg>
+      </div>
+    </div>
+  );
+}
+
 // 1) Cinematic Opener: Clicking plays "vide.mp4", ending transitions into 1st uploaded entrance image
 function RoyalVideoWelcome({onEnter}:{onEnter:()=>void}){
   const [isPlaying, setIsPlaying] = useState(false);
@@ -604,11 +791,8 @@ function App(){
         <div className="hero-mandap-backdrop" />
         <div className="hero-mandap-overlay" />
 
-        <img
-          src="/assets/garland-top.webp"
-          alt=""
-          className="hero-top-garland"
-        />
+        {/* 3) Real Looking Hanging Flowers with gentle slow breeze animation */}
+        <RealHangingFlowers />
 
         {/* Falling floral petals floating across hero */}
         <div className="hero-petals-flow" aria-hidden="true">
