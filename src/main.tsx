@@ -37,7 +37,7 @@ const events = [
     date: 'Thursday, 19 November 2026',
     times: [
       { label: 'Ring Ceremony & Sangeet', time: '5:30 PM' },
-      { label: 'Semi-Gala Dinner', time: '8:30 PM' }
+      { label: 'Dinner', time: '8:30 PM' }
     ],
     venue: 'Pebbles Resort, Rishikesh',
     note: 'An enchanting evening of love, music, dance, and celebration as we exchange rings and begin a beautiful new chapter together.',
@@ -720,7 +720,7 @@ function App(){
   return (
     <main ref={page}>
       {/* 8) Background Wedding Audio with Continuous Looping */}
-      <audio ref={audioRef} src="/assets/wedding-music.mp3" loop preload="auto" />
+      <audio ref={audioRef} src="/assets/wedding-music.mp3?v=2" loop preload="auto" />
 
       {/* Floating Audio Toggle Button */}
       {entered && (
